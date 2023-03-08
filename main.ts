@@ -1,6 +1,8 @@
-import { app } from './app'
-import { config, logger } from './utils'
+import 'reflect-metadata'
+import { env } from './config'
+import { logger } from './utils'
+import app from './app'
 
-app.listen(config.PORT, () => {
-  logger.info(`Starting development server: http://localhost:${config.PORT}`)
+app.listen(env.PORT, () => {
+  logger.info(`Starting development server: http://localhost:${env.PORT}`)
 })

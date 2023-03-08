@@ -1,9 +1,19 @@
-import { middleware } from './utils'
+import path from 'path'
 import express from 'express'
 import routes from './routes'
-import path from 'path'
+import { middleware } from './utils'
+import { db } from './config'
 
-export const app = express()
+db.dataSource
+  .initialize()
+  .then(() => {
+    console.log('Data Source has been initialized!')
+  })
+  .catch((err) => {
+    console.error('Error during Data Source initialization:', err)
+  })
+
+const app = express()
 
 app.use(middleware.requestLogger)
 
@@ -18,3 +28,4 @@ app.get('/', (_req, res) => {
   res.render('layout')
 })
 
+export default app
