@@ -12,3 +12,7 @@ export const requestLogger = (
   logger.info('---')
   next()
 }
+
+export const unknownEndpoint = (_req: Request, res: Response) => {
+  res.status(404).send({ error: 'unknown endpoint' })
+}

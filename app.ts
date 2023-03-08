@@ -15,14 +15,19 @@ db.dataSource
 
 const app = express()
 
-app.use(middleware.requestLogger)
-
 app.use(express.static(path.join(__dirname, 'public')))
 app.set('view engine', 'pug')
 app.set('views', path.join(__dirname, 'views'))
-app.use(express.urlencoded({ extended: false }))
+app.use(express.urlencoded({extended: false}))
+
+app.use(middleware.requestLogger)
 
 app.use('/auth', routes)
+app.get('/', (_req, res) => {
+  res.send('<h1>Home</h1>')
+})
+
+app.use(middleware.unknownEndpoint)
 
 app.get('/', (_req, res) => {
   res.render('layout')
