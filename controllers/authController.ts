@@ -6,9 +6,26 @@ export const signupForm = (_req: Request, res: Response) => {
 }
 
 export const signup = async (req: Request, res: Response) => {
-  const user = User.create(req.body)
+  const { name, email, password } = req.body
+  const userExists = await User.findOneBy({ email })
+
+  if (userExists) {
+    req.flash('err.email', 'El correo electrónico ya está en uso, elige otro')
+    req.flash('old.name', name)
+    req.flash('old.email', email)
+    return res.redirect('back')
+  }
+
+  const user = User.create({ name, email, password })
   console.log({ user })
-  res.redirect('/login')
+  // await user.save()
+
+  req.flash(
+    'registered user',
+    `Revisa tu bandeja de entrada. Acabamos de enviarte un correo electrónico a ${email} para verificar tu correo.`
+  )
+
+  res.redirect('/auth/login')
 }
 
 export const loginForm = (_req: Request, res: Response) => {

@@ -40,6 +40,7 @@ app.use((req, res, next) => {
   res.locals.old = filterOld(res.locals.flashes)
   res.locals.user = req.session.user
   req.user = req.session.user
+  console.log(res.locals)
   next()
 })
 
