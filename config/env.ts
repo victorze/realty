@@ -4,6 +4,8 @@ dotenv.config()
 export const NODE_ENV = process.env.NODE_ENV
 
 export const PORT = process.env.PORT
+export const SECRET = process.env.SECRET
+export const DB_URL_SESSION = process.env.DB_URL_SESSION
 
 export const DB_CONNECTION = process.env.DB_CONNECTION
 export const DB_HOST = process.env.DB_HOST

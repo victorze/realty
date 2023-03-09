@@ -11,10 +11,14 @@
     "noFallthroughCasesInSwitch": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
+    "checkJs": false,
 
+    // typeORM
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "strictPropertyInitialization": false,
-  },
-  "exclude": ["./build"]
+
+    // Declaration merging
+    "typeRoots": ["@types", "./node_module/@types"]
+  }
 }
