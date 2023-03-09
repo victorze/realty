@@ -19,6 +19,6 @@
     "strictPropertyInitialization": false,
 
     // Declaration merging
-    "typeRoots": ["@types", "./node_module/@types"]
+    "typeRoots": ["./@types", "./node_module/@types"]
   }
 }
