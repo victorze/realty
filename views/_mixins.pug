@@ -1,5 +1,5 @@
 mixin error(name)
   if locals.error(name)
     each error in locals.error(name)
-      span(class="block text-sm text-pink-600")
+      span(class="block text-sm text-red-700")
         | #{error}

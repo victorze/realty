@@ -10,25 +10,31 @@ block content
       | Iniciar sesión
 
     div(class="mt-8 mx-auto max-w-sm")
-      div(class="bg-white py-8 px-4 shadow")
-        form(class="space-y-5 px-4")
-          input(
-            class="w-full border border-gray-300 rounded px-3 py-1 outline-none placeholder-gray-500 focus:border-indigo-500"
-            name="email"
-            type="email"
-            placeholder="Correo electrónico"
-          )
-          input(
-            class="w-full border border-gray-300 rounded px-3 py-1 outline-none placeholder-gray-500 focus:border-indigo-500"
-            name="password"
-            type="password"
-            placeholder="Contraseña"
-          )
-          input(
-            class="bg-indigo-600 w-full rounded py-2 hover:bg-indigo-700 text-white text-sm font-bold cursor-pointer"
-            type="submit"
-            value="Iniciar sesión"
-          )
+      div(class="bg-white py-8 px-8 shadow")
+        form(class="space-y-5" method='POST' action='/auth/login' novalidate)
+          div
+            input(
+              class="w-full border border-gray-300 rounded px-3 py-1 outline-none placeholder-gray-500 focus:border-indigo-500"
+              name="email"
+              type="email"
+              placeholder="Correo electrónico"
+              value= locals.old('email')
+            )
+            +error('email')
+          div
+            input(
+              class="w-full border border-gray-300 rounded px-3 py-1 outline-none placeholder-gray-500 focus:border-indigo-500"
+              name="password"
+              type="password"
+              placeholder="Contraseña"
+            )
+            +error('password')
+          div
+            input(
+              class="bg-indigo-600 w-full rounded py-2 hover:bg-indigo-700 text-white text-sm font-bold cursor-pointer"
+              type="submit"
+              value="Iniciar sesión"
+            )
           a(
             class="block text-center text-sm text-indigo-500 hover:text-indigo-600"
             href="/auth/reset-password"
