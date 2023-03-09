@@ -4,7 +4,7 @@ import session from 'express-session'
 import pgSession from 'connect-pg-simple'
 import flash from 'connect-flash'
 import routes from './routes'
-import { middleware } from './utils'
+import { filterError, filterOld, middleware } from './utils'
 import { db, env } from './config'
 
 db.dataSource
@@ -36,17 +36,18 @@ app.use(
 app.use(flash())
 app.use((req, res, next) => {
   res.locals.flashes = req.flash()
-  req.user = req.session.user
+  res.locals.error = filterError(res.locals.flashes)
+  res.locals.old = filterOld(res.locals.flashes)
   res.locals.user = req.session.user
+  req.user = req.session.user
   next()
 })
 
 app.use(middleware.requestLogger)
 
 app.use('/auth', routes)
-app.get('/', (req, res) => {
-  console.log(req.flash('info'))
-  res.send('<h1>Home</h1>')
+app.get('/', (_req, res) => {
+  res.send('Home')
 })
 
 app.use(middleware.unknownEndpoint)
