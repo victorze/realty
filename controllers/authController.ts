@@ -16,9 +16,9 @@ export const signup = async (req: Request, res: Response) => {
     return res.redirect('back')
   }
 
-  const user = User.create({ name, email, password })
-  console.log({ user })
-  // await user.save()
+  const user = User.create({ name, email })
+  user.setPassword(password)
+  await user.save()
 
   req.flash(
     'registered user',
