@@ -12,6 +12,6 @@ export const dataSource = new DataSource({
   entities: [
     env.NODE_ENV === 'production' ? 'build/models/*.js' : 'models/*.ts',
   ],
-  logging: true,
-  synchronize: true,
+  logging: env.NODE_ENV === 'development',
+  synchronize: env.NODE_ENV !== 'production',
 })

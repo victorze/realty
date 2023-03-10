@@ -1,4 +1,3 @@
-export * as cryptoUtils from './cryptoUtils'
 export * as flashUtils from './flashUtils'
 export * as logger from './loggerUtils'
 export * as mailUtils from './mailUtils'

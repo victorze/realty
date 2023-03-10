@@ -1,0 +1,7 @@
+| Verifica tu correo electrónico
+
+| Hola, #{name}:
+
+| Recientemente creaste una cuenta con este correo electrónico. Haz clic en el enlace de abajo para verificar tu correo electrónico.
+
+| https://cafecito.app/

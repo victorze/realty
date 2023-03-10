@@ -1,7 +1,6 @@
 import { Request, Response } from 'express'
 import { User } from '../models'
-import { mailService } from '../services'
-import { cryptoUtils } from '../utils'
+import { cryptoService, mailService } from '../services'
 
 export const signupForm = (_req: Request, res: Response) => {
   res.render('auth/signup')
@@ -20,10 +19,10 @@ export const signup = async (req: Request, res: Response) => {
 
   const user = User.create({ name, email })
   user.setPassword(password)
-  user.token = cryptoUtils.generateToken()
+  user.token = cryptoService.generateConfirmationToken()
   await user.save()
 
-  mailService.sendConfirmationLink(user)
+  await mailService.sendConfirmationLink(user)
 
   req.flash(
     'registered user',

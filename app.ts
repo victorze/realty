@@ -28,7 +28,7 @@ app.use(
     store: new (pgSession(session))({
       conString: env.DB_URL_SESSION,
     }),
-    secret: env.SECRET as string,
+    secret: env.SECRET_KEY as string,
     resave: false,
     saveUninitialized: false,
   })

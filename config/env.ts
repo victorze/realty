@@ -1,10 +1,13 @@
+import path from 'path'
 import * as dotenv from 'dotenv'
 dotenv.config()
+
+export const BASE_DIR = path.join(__dirname, '..')
 
 export const NODE_ENV = process.env.NODE_ENV
 
 export const PORT = process.env.PORT
-export const SECRET = process.env.SECRET
+export const SECRET_KEY = process.env.SECRET_KEY
 export const DB_URL_SESSION = process.env.DB_URL_SESSION
 
 export const DB_CONNECTION = process.env.DB_CONNECTION
