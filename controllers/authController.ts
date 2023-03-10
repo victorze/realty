@@ -1,5 +1,6 @@
 import { Request, Response } from 'express'
 import { User } from '../models'
+import { token } from '../utils'
 
 export const signupForm = (_req: Request, res: Response) => {
   res.render('auth/signup')
@@ -18,6 +19,7 @@ export const signup = async (req: Request, res: Response) => {
 
   const user = User.create({ name, email })
   user.setPassword(password)
+  user.token = token.generateRandonToken()
   await user.save()
 
   req.flash(
