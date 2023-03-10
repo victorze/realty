@@ -2,9 +2,9 @@ import path from 'path'
 import express from 'express'
 import session from 'express-session'
 import pgSession from 'connect-pg-simple'
-import flash from 'connect-flash'
+import connectFlash from 'connect-flash'
 import routes from './routes'
-import { filterError, filterOld, middleware } from './utils'
+import { flash, middleware } from './utils'
 import { db, env } from './config'
 
 db.dataSource
@@ -33,11 +33,11 @@ app.use(
     saveUninitialized: false,
   })
 )
-app.use(flash())
+app.use(connectFlash())
 app.use((req, res, next) => {
   res.locals.flashes = req.flash()
-  res.locals.error = filterError(res.locals.flashes)
-  res.locals.old = filterOld(res.locals.flashes)
+  res.locals.error = flash.filterError(res.locals.flashes)
+  res.locals.old = flash.filterOld(res.locals.flashes)
   res.locals.user = req.session.user
   req.user = req.session.user
   console.log(res.locals)

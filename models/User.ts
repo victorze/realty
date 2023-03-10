@@ -17,7 +17,7 @@ export class User extends Model {
   salt: string
 
   @Column({ nullable: true })
-  rememberToken: string
+  token: string
 
   @Column({ default: false })
   emailVerified: boolean
