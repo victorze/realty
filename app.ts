@@ -2,9 +2,9 @@ import path from 'path'
 import express from 'express'
 import session from 'express-session'
 import pgSession from 'connect-pg-simple'
-import connectFlash from 'connect-flash'
+import flash from 'connect-flash'
 import routes from './routes'
-import { flash, middleware } from './utils'
+import { flashUtils, middlewareUtils } from './utils'
 import { db, env } from './config'
 
 db.dataSource
@@ -33,25 +33,25 @@ app.use(
     saveUninitialized: false,
   })
 )
-app.use(connectFlash())
+app.use(flash())
 app.use((req, res, next) => {
   res.locals.flashes = req.flash()
-  res.locals.error = flash.filterError(res.locals.flashes)
-  res.locals.old = flash.filterOld(res.locals.flashes)
+  res.locals.error = flashUtils.filterError(res.locals.flashes)
+  res.locals.old = flashUtils.filterOld(res.locals.flashes)
   res.locals.user = req.session.user
   req.user = req.session.user
   console.log(res.locals)
   next()
 })
 
-app.use(middleware.requestLogger)
+app.use(middlewareUtils.requestLogger)
 
 app.use('/auth', routes)
 app.get('/', (_req, res) => {
   res.send('Home')
 })
 
-app.use(middleware.unknownEndpoint)
+app.use(middlewareUtils.unknownEndpoint)
 
 app.get('/', (_req, res) => {
   res.render('layout')

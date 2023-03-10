@@ -1,14 +1,14 @@
 import { Router } from 'express'
+import { validationService as v } from './services'
 import { authController } from './controllers'
-import { validate } from './services'
 
 const route = Router()
 
 route.get('/signup', authController.signupForm)
-route.post('/signup', validate.signup, authController.signup)
+route.post('/signup', v.signup, authController.signup)
 route.get('/login', authController.loginForm)
-route.post('/login', validate.login, authController.login)
+route.post('/login', v.login, authController.login)
 route.get('/reset-password', authController.resetPasswordForm)
-route.post('/reset-password', validate.email, authController.resetPassword)
+route.post('/reset-password', v.email, authController.resetPassword)
 
 export default route
