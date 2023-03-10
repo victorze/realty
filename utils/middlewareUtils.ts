@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
 import { z } from 'zod'
+import { env } from '../config'
 import { logger } from './index'
 
 export const requestLogger = (
@@ -14,8 +15,25 @@ export const requestLogger = (
   next()
 }
 
-export const unknownEndpoint = (_req: Request, res: Response) => {
-  res.status(404).send({ error: 'unknown endpoint' })
+export const notFound = (_req: Request, _res: Response, next: NextFunction) => {
+  const err = new Error()
+  err.status = 404
+  next(err)
+}
+
+export const handleErrors = (
+  err: Error,
+  _req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  err.status = err.status || 500
+
+  if (env.NODE_ENV === 'production') {
+    return res.status(err.status).render(`errors/${err.status}`)
+  }
+
+  next(err)
 }
 
 export const validate = (schema: z.ZodObject<any>) => {

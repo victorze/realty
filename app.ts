@@ -51,7 +51,8 @@ app.get('/', (_req, res) => {
   res.send('Home')
 })
 
-app.use(middlewareUtils.unknownEndpoint)
+app.use(middlewareUtils.notFound)
+app.use(middlewareUtils.handleErrors)
 
 app.get('/', (_req, res) => {
   res.render('layout')
