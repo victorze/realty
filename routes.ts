@@ -1,3 +1,4 @@
+import 'express-async-errors'
 import { Router } from 'express'
 import { validationService as v } from './services'
 import { authController } from './controllers'
