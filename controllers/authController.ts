@@ -10,7 +10,7 @@ export const signup = async (req: Request, res: Response) => {
   const userExists = await User.findOneBy({ email })
 
   if (userExists) {
-    req.flash('err.email', 'El correo electrónico ya está en uso, elige otro')
+    req.flash('err.email', 'El correo electrónico ya existe')
     req.flash('old.name', name)
     req.flash('old.email', email)
     return res.redirect('back')
