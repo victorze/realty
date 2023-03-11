@@ -12,7 +12,6 @@ export const sendConfirmationLink = async (user: User) => {
 
   await mail.send({
     to: user.email,
-    from: env.MAIL_FROM_ADDRESS,
     subject,
     html: htmlContent,
     text: textContent,
