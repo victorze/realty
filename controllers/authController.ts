@@ -60,6 +60,21 @@ export const resetPasswordForm = (_req: Request, res: Response) => {
   res.render('auth/reset-password')
 }
 
-export const resetPassword = (_req: Request, res: Response) => {
+export const resetPassword = async (req: Request, res: Response) => {
+  const { email } = req.body
+  const user = await User.findOneBy({ email })
+
+  if (user) {
+    user.token = cryptoService.generateToken()
+    console.log({ user })
+    await user.save()
+    mailService.sendResetPasswordLink(user)
+  }
+
+  req.flash(
+    'reset password',
+    'Te hemos enviado las instrucciones para restablecer tu contraseña'
+  )
+
   res.redirect('back')
 }
