@@ -1,27 +1,26 @@
 extends ../layout
 
 block vars
-  - var title='Iniciar sesión'
+  - var pageTitle='Iniciar sesión'
 
 block content
   div(class="py-10")
     h1(class="my-10 text-4xl text-center font-extrabold") Bienes
       span(class="font-normal") #{' '} Raices
-    h2(class="text-2xl text-center font-extrabold") Iniciar sesión
+    h2(class="text-2xl text-center font-extrabold")= pageTitle
 
     div(class="mt-8 mx-auto max-w-sm")
       div(class="bg-white py-8 px-8 shadow")
         form(class="space-y-5" method='POST' action='/auth/login' novalidate)
-          if locals.flashes['registered user']
-            p(class="bg-amber-100 p-2 text-center")
-              | #{locals.flashes['registered user']}
+          if flashes['registered user']
+            p(class="bg-amber-100 p-2 text-center")= flashes['registered user']
           div
             input(
               class="w-full border border-gray-300 rounded px-3 py-1 outline-none placeholder-gray-500 focus:border-indigo-500"
               name="email"
               type="email"
               placeholder="Correo electrónico"
-              value=locals.old('email')
+              value=old('email')
             )
             +error('email')
           div
