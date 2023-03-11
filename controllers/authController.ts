@@ -22,7 +22,7 @@ export const signup = async (req: Request, res: Response) => {
   user.token = cryptoService.generateConfirmationToken()
   await user.save()
 
-  await mailService.sendConfirmationLink(user)
+  mailService.sendConfirmationLink(user)
 
   req.flash(
     'registered user',
@@ -30,6 +30,22 @@ export const signup = async (req: Request, res: Response) => {
   )
 
   res.redirect('/auth/login')
+}
+
+export const confirm = async (req: Request, res: Response) => {
+  const { token } = req.params
+  const user = await User.findOneBy({ token })
+
+  let confirmedAccount = false
+
+  if (user && !user.emailVerified) {
+    user.emailVerified = true
+    user.token = ''
+    await user.save()
+    confirmedAccount = true
+  }
+
+  res.render('auth/confirm', { confirmedAccount })
 }
 
 export const loginForm = (_req: Request, res: Response) => {

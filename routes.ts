@@ -7,6 +7,7 @@ const route = Router()
 
 route.get('/signup', authController.signupForm)
 route.post('/signup', v.signup, authController.signup)
+route.get('/confirm/:token', authController.confirm)
 route.get('/login', authController.loginForm)
 route.post('/login', v.login, authController.login)
 route.get('/reset-password', authController.resetPasswordForm)

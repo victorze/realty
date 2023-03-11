@@ -7,6 +7,7 @@ export const sendConfirmationLink = async (user: User) => {
 
   const { htmlContent, textContent } = mail.makeContent('confirm', {
     name: user.name,
+    url: `${env.APP_URL}:${env.PORT}/auth/confirm/${user.token}`,
   })
 
   await mail.send({

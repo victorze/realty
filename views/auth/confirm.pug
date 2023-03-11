@@ -1,0 +1,14 @@
+extends ../layout
+
+block content
+    div
+      if confirmedAccount
+        div(class="pt-20 text-center")
+          h1(class="mb-6 text-slate-800 text-2xl font-bold") Cuenta verificada
+          p(class="text-slate-800 text-lg") !Felicidades! Tu cuenta ha sido verificada
+          a(class="block mt-4 text-indigo-600 hover:text-indigo-700" href="/auth/login") Iniciar sessión
+      else
+        div(class="pt-20 text-center")
+          h1(class="mb-6 text-slate-800 text-2xl font-bold") Hubo un error al verificar tu cuenta
+          p(class="text-slate-800 text-lg") El token es invalido o ya ha sido utilizado
+          a(class="block mt-4 text-indigo-600 hover:text-indigo-700" href="/") Ir a la página de inicio
