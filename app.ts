@@ -40,10 +40,12 @@ app.use((req, res, next) => {
   res.locals.old = flashUtils.filterOld(res.locals.flashes)
   res.locals.user = req.session.user
   req.user = req.session.user
-  console.log(res.locals)
+  console.log(res.locals.flashes)
+  console.log(req.session)
   next()
 })
 
+app.use(middlewareUtils.csrf())
 app.use(middlewareUtils.requestLogger)
 
 app.use('/auth', routes)

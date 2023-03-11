@@ -1,3 +1,4 @@
+import crypto from 'crypto'
 import { NextFunction, Request, Response } from 'express'
 import { z } from 'zod'
 import { env } from '../config'
@@ -16,7 +17,7 @@ export const requestLogger = (
 }
 
 export const notFound = (_req: Request, _res: Response, next: NextFunction) => {
-  const err = new Error()
+  const err = new Error('Resource not found')
   err.status = 404
   next(err)
 }
@@ -56,4 +57,34 @@ export const validate = (schema: z.ZodObject<any>) => {
       res.redirect('back')
     }
   }
+}
+
+export const csrf = () => {
+  return [
+    (req: Request, res: Response, next: NextFunction) => {
+      res.locals.csrfToken = () => {
+        const token = crypto.randomBytes(48).toString('base64')
+        if (req.session.csrfToken) {
+          req.session.csrfToken = [...req.session.csrfToken, token]
+        } else {
+          req.session.csrfToken = [token]
+        }
+        return token
+      }
+      next()
+    },
+    (req: Request, _res: Response, next: NextFunction) => {
+      if (
+        req.method == 'POST' &&
+        !req.session.csrfToken?.includes(req.body._token)
+      ) {
+        const err = new Error('CSRF token mismatch')
+        err.status = 403
+        throw err
+      } else {
+        req.session.csrfToken = req.session.csrfToken?.slice(-5)
+        next()
+      }
+    },
+  ]
 }

@@ -5,10 +5,10 @@
   "main": "main.ts",
   "scripts": {
     "dev": "NODE_ENV=development ts-node-dev --files ./main.ts",
-    "build": "tsc",
+    "build": "rm -rf ./build && tsc && cp -r ./views ./build",
     "start": "NODE_ENV=production node build/main.js",
     "build:css:dev": "tailwindcss -i ./public/css/tailwind.css -o ./public/css/styles.css --watch",
-    "build:css": "tailwindcss -i ./public/css/tailwind.css -o ./public/css/styles.css --minify"
+    "build:css": "tailwindcss -i ./public/css/tailwind.css -o ./build/public/css/styles.css --minify"
   },
   "keywords": [],
   "author": "",

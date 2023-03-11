@@ -12,6 +12,7 @@ block content
     div(class="mt-8 mx-auto max-w-sm")
       div(class="bg-white py-8 px-8 shadow")
         form(class="space-y-5" method='POST' action='/auth/login' novalidate)
+          +csrf
           if flashes['registered user']
             p(class="bg-amber-100 p-2 text-center")= flashes['registered user']
           div
