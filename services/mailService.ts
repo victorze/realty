@@ -3,7 +3,7 @@ import { User } from '../models'
 import { mailUtils as mail } from '../utils'
 
 export const sendConfirmationLink = async (user: User) => {
-  const subject = 'Verifica tu correo electrónico'
+  const subject = `Verifica tu correo electrónico`
 
   const { htmlContent, textContent } = mail.makeContent('confirm', {
     name: user.name,
@@ -19,9 +19,9 @@ export const sendConfirmationLink = async (user: User) => {
 }
 
 export const sendResetPasswordLink = async (user: User) => {
-  const subject = 'Restablecimiento de contraseña'
+  const subject = `Restablecimiento de contraseña`
 
-  const { htmlContent, textContent } = mail.makeContent('reset-password', {
+  const { htmlContent, textContent } = mail.makeContent('request-recover', {
     name: user.name,
     url: `${env.APP_URL}:${env.PORT}/auth/reset/${user.token}`,
   })

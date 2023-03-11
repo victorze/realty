@@ -10,7 +10,7 @@ route.post('/signup', v.signup, authController.signup)
 route.get('/confirm/:token', authController.confirm)
 route.get('/login', authController.loginForm)
 route.post('/login', v.login, authController.login)
-route.get('/reset-password', authController.resetPasswordForm)
-route.post('/reset-password', v.email, authController.resetPassword)
+route.get('/request-recover', authController.requestRecoverForm)
+route.post('/request-recover', v.email, authController.requestRecover)
 
 export default route

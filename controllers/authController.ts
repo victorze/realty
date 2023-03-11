@@ -56,11 +56,11 @@ export const login = (_req: Request, res: Response) => {
   res.redirect('/')
 }
 
-export const resetPasswordForm = (_req: Request, res: Response) => {
-  res.render('auth/reset-password')
+export const requestRecoverForm = (_req: Request, res: Response) => {
+  res.render('auth/request-recover')
 }
 
-export const resetPassword = async (req: Request, res: Response) => {
+export const requestRecover = async (req: Request, res: Response) => {
   const { email } = req.body
   const user = await User.findOneBy({ email })
 
@@ -72,7 +72,7 @@ export const resetPassword = async (req: Request, res: Response) => {
   }
 
   req.flash(
-    'reset password',
+    'request recover',
     'Te hemos enviado las instrucciones para restablecer tu contraseña'
   )
 

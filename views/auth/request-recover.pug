@@ -11,12 +11,12 @@ block content
 
     div(class="mt-8 mx-auto max-w-sm")
       div(class="bg-white py-8 px-8 shadow")
-        form(method='POST' action='/auth/reset-password' noValidate)
+        form(method='POST' action='/auth/request-recover' noValidate)
           +csrf
-          if flashes['reset password']
+          if flashes['request recover']
             div(class="mb-5 bg-amber-100 p-2 text-center")
               h3(class="font-bold") Revisa tu correo electrónico
-              p= flashes['reset password']
+              p= flashes['request recover']
           p(class="mb-5") Ingresa tu correo electrónico y te enviaremos las instrucciones para restablecer tu contraseña.
           div(class="mb-5")
             input(

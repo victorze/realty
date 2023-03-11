@@ -11,5 +11,5 @@ export const transporter = nodemailer.createTransport(
       pass: env.MAIL_PASSWORD,
     },
   },
-  { from: env.MAIL_FROM_ADDRESS }
+  { from: `${env.APP_NAME} ${env.MAIL_FROM_ADDRESS}` }
 )

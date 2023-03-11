@@ -1,0 +1,7 @@
+| Hola, #{name}:
+
+| Te enviamos este mensaje porque hemos recibido una solicitud para restablecer la contraseña de tu cuenta.
+
+| #{url}
+
+| Si no solicitaste restablecer tu contraseña, ignora este mensaje.
