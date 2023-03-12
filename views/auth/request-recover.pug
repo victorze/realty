@@ -14,8 +14,12 @@ block content
         +csrf
         if flashes['request recover']
           div(class="mb-5 bg-amber-100 p-2 text-center")
-            h3(class="font-bold") Revisa tu correo electrónico
-            p= flashes['request recover']
+            h3(class="font-bold")= flashes['request recover']
+            p Te hemos enviado instrucciones para restablecer tu contraseña
+        if flashes['unverified email']
+          div(class="mb-5 bg-red-200 p-2 text-center")
+            h3(class="font-bold")= flashes['unverified email']
+            p Tu correo electrónico aún no ha sido verificado.
         p(class="mb-5") Ingresa tu correo electrónico y te enviaremos instrucciones para restablecer tu contraseña.
         div(class="mb-5")
           input(

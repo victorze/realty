@@ -73,17 +73,16 @@ export const requestRecover = async (req: Request, res: Response) => {
   const user = await User.findOneBy({ email })
 
   if (user) {
+    if (!user.emailVerified) {
+      req.flash('unverified email', 'Correo no verificado')
+      return res.redirect('back')
+    }
     user.token = crypto.token()
-    console.log({ user })
     await user.save()
     mailService.sendResetPasswordLink(user)
   }
 
-  req.flash(
-    'request recover',
-    'Te hemos enviado instrucciones para restablecer tu contraseña'
-  )
-
+  req.flash('request recover', 'Revisa tu correo electrónico')
   res.redirect('back')
 }
 
