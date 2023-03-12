@@ -52,8 +52,17 @@ export const loginForm = (_req: Request, res: Response) => {
   res.render('auth/login')
 }
 
-export const login = (_req: Request, res: Response) => {
-  res.redirect('/')
+export const login = async (req: Request, res: Response) => {
+  const { email, password } = req.body
+  const user = await User.findOneBy({ email })
+
+  if (user && user.checkPassword(password)) {
+    res.redirect('/')
+  } else {
+    req.flash('old.email', email)
+    req.flash('err.password', 'La contraseña es incorreta')
+    res.redirect('back')
+  }
 }
 
 export const requestRecoverForm = (_req: Request, res: Response) => {
@@ -73,8 +82,35 @@ export const requestRecover = async (req: Request, res: Response) => {
 
   req.flash(
     'request recover',
-    'Te hemos enviado las instrucciones para restablecer tu contraseña'
+    'Te hemos enviado instrucciones para restablecer tu contraseña'
   )
 
   res.redirect('back')
+}
+
+export const resetPasswordForm = async (req: Request, res: Response) => {
+  const { token } = req.params
+  const user = await User.findOneBy({ token })
+
+  if (user) {
+    res.render('auth/reset-password')
+  } else {
+    const err = new Error('Not Found')
+    err.status = 404
+    throw err
+  }
+}
+
+export const resetPassword = async (req: Request, res: Response) => {
+  const { token } = req.params
+  const { password } = req.body
+  const user = await User.findOneBy({ token })
+
+  if (user) {
+    user.setPassword(password)
+    user.token = ''
+    await user.save()
+  }
+
+  res.redirect('/')
 }

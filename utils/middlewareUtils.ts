@@ -37,7 +37,7 @@ export const handleErrors = (
   next(err)
 }
 
-export const validate = (schema: z.ZodObject<any>) => {
+export const validate = (schema: z.ZodObject<any> | z.ZodEffects<any>) => {
   return (req: Request, res: Response, next: NextFunction) => {
     const result = schema.safeParse(req.body)
 

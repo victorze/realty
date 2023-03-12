@@ -12,8 +12,19 @@ const loginSchema = z.object({
   password: z.string().nonempty({ message: 'La contraseña es obligatoria' }),
 })
 
+const passwordMatchSchema = z
+  .object({
+    password: signupSchema.shape.password,
+    confirmPassword: z.string(),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: 'La contraseña no coincide',
+    path: ['confirmPassword'],
+  })
+
 const emailSchema = signupSchema.pick({ email: true })
 
 export const signup = validate(signupSchema)
 export const login = validate(loginSchema)
 export const email = validate(emailSchema)
+export const password = validate(passwordMatchSchema)

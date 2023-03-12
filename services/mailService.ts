@@ -23,7 +23,7 @@ export const sendResetPasswordLink = async (user: User) => {
 
   const { htmlContent, textContent } = mail.makeContent('request-recover', {
     name: user.name,
-    url: `${env.APP_URL}:${env.PORT}/auth/reset/${user.token}`,
+    url: `${env.APP_URL}:${env.PORT}/auth/reset-password/${user.token}`,
   })
 
   await mail.send({

@@ -11,7 +11,7 @@ export class User extends Model {
   email: string
 
   @Column()
-  password: string
+  private password: string
 
   @Column()
   salt: string
