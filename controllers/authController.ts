@@ -1,6 +1,7 @@
 import { Request, Response } from 'express'
 import { User } from '../models'
 import { cryptoService, mailService } from '../services'
+import { commonUtils } from '../utils'
 
 export const signupForm = (_req: Request, res: Response) => {
   res.render('auth/signup')
@@ -36,16 +37,14 @@ export const confirm = async (req: Request, res: Response) => {
   const { token } = req.params
   const user = await User.findOneBy({ token })
 
-  let confirmedAccount = false
-
   if (user && !user.emailVerified) {
     user.emailVerified = true
     user.token = ''
     await user.save()
-    confirmedAccount = true
+    res.render('auth/confirm')
   }
 
-  res.render('auth/confirm', { confirmedAccount })
+  commonUtils.abort(404)
 }
 
 export const loginForm = (_req: Request, res: Response) => {
@@ -95,9 +94,7 @@ export const resetPasswordForm = async (req: Request, res: Response) => {
   if (user) {
     res.render('auth/reset-password')
   } else {
-    const err = new Error('Not Found')
-    err.status = 404
-    throw err
+    commonUtils.abort(404)
   }
 }
 
