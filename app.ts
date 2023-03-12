@@ -2,12 +2,12 @@ import path from 'path'
 import express from 'express'
 import session from 'express-session'
 import pgSession from 'connect-pg-simple'
-import flash from 'connect-flash'
+import connectFlash from 'connect-flash'
 import routes from './routes'
-import { flashUtils, middlewareUtils } from './utils'
-import { db, env } from './config'
+import { flash, middleware } from './utils'
+import { dbConfig, env } from './config'
 
-db.dataSource
+dbConfig.dataSource
   .initialize()
   .then(() => {
     console.log('Data Source has been initialized!')
@@ -33,12 +33,12 @@ app.use(
     saveUninitialized: false,
   })
 )
-app.use(flash())
+app.use(connectFlash())
 app.use((req, res, next) => {
   res.locals.APP_NAME = env.APP_NAME
   res.locals.flashes = req.flash()
-  res.locals.error = flashUtils.filterError(res.locals.flashes)
-  res.locals.old = flashUtils.filterOld(res.locals.flashes)
+  res.locals.error = flash.filterError(res.locals.flashes)
+  res.locals.old = flash.filterOld(res.locals.flashes)
   res.locals.user = req.session.user
   req.user = req.session.user
   console.log(res.locals.flashes)
@@ -46,19 +46,15 @@ app.use((req, res, next) => {
   next()
 })
 
-app.use(middlewareUtils.csrf())
-app.use(middlewareUtils.requestLogger)
+app.use(middleware.csrf())
+app.use(middleware.requestLogger)
 
 app.use('/auth', routes)
 app.get('/', (_req, res) => {
   res.send('Home')
 })
 
-app.use(middlewareUtils.notFound)
-app.use(middlewareUtils.handleErrors)
-
-app.get('/', (_req, res) => {
-  res.render('layout')
-})
+app.use(middleware.notFound)
+app.use(middleware.handleErrors)
 
 export default app

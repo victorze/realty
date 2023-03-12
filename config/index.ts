@@ -1,3 +1,3 @@
 export * as env from './env'
-export * as db from './db'
-export * as mail from './mail'
+export * as dbConfig from './dbConfig'
+export * as mailConfig from './mailConfig'

@@ -1,6 +1,6 @@
 import { env } from '../config'
 import { User } from '../models'
-import { mailUtils as mail } from '../utils'
+import { mail } from '../utils'
 
 export const sendConfirmationLink = async (user: User) => {
   const subject = `Verifica tu correo electrónico`

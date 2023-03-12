@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { validate } from '../utils/middlewareUtils'
+import { validate } from '../utils/middleware'
 
 const signupSchema = z.object({
   name: z.string().trim().nonempty({ message: 'El nombre es obligatorio' }),

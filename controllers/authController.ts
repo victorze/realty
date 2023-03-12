@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 import { User } from '../models'
-import { cryptoService, mailService } from '../services'
-import { commonUtils } from '../utils'
+import { mailService } from '../services'
+import { common, crypto } from '../utils'
 
 export const signupForm = (_req: Request, res: Response) => {
   res.render('auth/signup')
@@ -20,7 +20,7 @@ export const signup = async (req: Request, res: Response) => {
 
   const user = User.create({ name, email })
   user.setPassword(password)
-  user.token = cryptoService.generateToken()
+  user.token = crypto.generateToken()
   await user.save()
 
   mailService.sendConfirmationLink(user)
@@ -43,7 +43,7 @@ export const confirm = async (req: Request, res: Response) => {
     await user.save()
     res.render('auth/confirm')
   } else {
-    commonUtils.abort(404, 'Not found')
+    common.abort(404, 'Not found')
   }
 }
 
@@ -73,7 +73,7 @@ export const requestRecover = async (req: Request, res: Response) => {
   const user = await User.findOneBy({ email })
 
   if (user) {
-    user.token = cryptoService.generateToken()
+    user.token = crypto.generateToken()
     console.log({ user })
     await user.save()
     mailService.sendResetPasswordLink(user)
@@ -94,7 +94,7 @@ export const resetPasswordForm = async (req: Request, res: Response) => {
   if (user) {
     res.render('auth/reset-password')
   } else {
-    commonUtils.abort(404)
+    common.abort(404)
   }
 }
 
