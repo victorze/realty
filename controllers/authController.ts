@@ -19,8 +19,8 @@ export const signup = async (req: Request, res: Response) => {
   }
 
   const user = User.create({ name, email })
-  user.setPassword(password)
-  user.token = crypto.generateToken()
+  user.password = await crypto.hash(password)
+  user.token = crypto.token()
   await user.save()
 
   mailService.sendConfirmationLink(user)
@@ -55,7 +55,7 @@ export const login = async (req: Request, res: Response) => {
   const { email, password } = req.body
   const user = await User.findOneBy({ email })
 
-  if (user && user.checkPassword(password)) {
+  if (user && (await crypto.check(password, user.password))) {
     res.redirect('/')
   } else {
     req.flash('old.email', email)
@@ -73,7 +73,7 @@ export const requestRecover = async (req: Request, res: Response) => {
   const user = await User.findOneBy({ email })
 
   if (user) {
-    user.token = crypto.generateToken()
+    user.token = crypto.token()
     console.log({ user })
     await user.save()
     mailService.sendResetPasswordLink(user)
@@ -104,7 +104,7 @@ export const resetPassword = async (req: Request, res: Response) => {
   const user = await User.findOneBy({ token })
 
   if (user) {
-    user.setPassword(password)
+    user.password = await crypto.hash(password)
     user.token = ''
     await user.save()
   }

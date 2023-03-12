@@ -1,4 +1,3 @@
-import crypto from 'crypto'
 import { Entity, Column } from 'typeorm'
 import { Model } from './Model'
 
@@ -11,28 +10,11 @@ export class User extends Model {
   email: string
 
   @Column()
-  private password: string
-
-  @Column()
-  salt: string
+  password: string
 
   @Column({ nullable: true })
   token: string
 
   @Column({ default: false })
   emailVerified: boolean
-
-  setPassword(password: string) {
-    this.salt = crypto.randomBytes(16).toString('hex')
-    this.password = crypto
-      .pbkdf2Sync(password, this.salt, 1000, 64, 'sha512')
-      .toString('hex')
-  }
-
-  checkPassword(password: string): boolean {
-    const hash = crypto
-      .pbkdf2Sync(password, this.salt, 1000, 64, 'sha512')
-      .toString('hex')
-    return this.password === hash
-  }
 }
