@@ -1,41 +1,28 @@
 extends ../layout
+include _mixins
 
 block vars
   - var pageTitle='¿Olvidaste tu contraseña?'
 
 block content
   div(class="py-10")
-    h1(class="my-10 text-4xl text-center font-extrabold") Bienes
-      span(class="font-normal") #{' '} Raices
-    h2(class="text-2xl text-center font-bold")= pageTitle
+    +header(pageTitle)
 
     div(class="mt-8 mx-auto max-w-sm")
-      form(class="bg-white py-8 px-8 shadow" method='POST' action='/auth/request-recover' noValidate)
-        +csrf
+      div(class="bg-white py-8 px-8 shadow" )
         if flashes['request recover']
-          div(class="mb-5 bg-amber-100 p-2 text-center")
-            h3(class="font-bold")= flashes['request recover']
-            p Te hemos enviado instrucciones para restablecer tu contraseña
+          +alert(flashes['request recover'], 'Te hemos enviado instrucciones para restablecer tu contraseña.')
         if flashes['unverified email']
-          div(class="mb-5 bg-red-200 p-2 text-center")
-            h3(class="font-bold")= flashes['unverified email']
-            p Tu correo electrónico aún no ha sido verificado.
-        p(class="mb-5") Ingresa tu correo electrónico y te enviaremos instrucciones para restablecer tu contraseña.
-        div(class="mb-5")
-          input(
-            class="w-full border border-gray-300 rounded px-3 py-1 outline-none placeholder-gray-500 focus:border-indigo-500"
-            name="email"
-            type="email"
-            placeholder="Correo electrónico"
-            value= old('email')
-          )
-          +error('email')
-        div
-          input(
-            class="bg-indigo-600 w-full rounded py-2 hover:bg-indigo-700 text-white text-sm font-bold cursor-pointer"
-            type="submit"
-            value="Enviar enlace de restablecimiento"
-          )
+          +alert(flashes['unverified email'], 'Tu correo electrónico aún no ha sido verificado.', 'danger')
+
+        form(method='POST' action='/auth/request-recover' noValidate)
+          +csrf
+          p(class="mb-5") Ingresa tu correo electrónico y te enviaremos instrucciones para restablecer tu contraseña.
+          div(class="mb-5")
+            +input('email')(type="email" placeholder="Correo electrónico" value= old('email'))
+            +error('email')
+          div
+            +submit('Enviar enlace de restablecimiento')
 
       div(class="bg-white mt-4 py-6 px-8 shadow text-center text-sm")
         a(
