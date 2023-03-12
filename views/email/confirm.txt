@@ -1,6 +1,8 @@
 | Hola, #{name}:
 
 | Recientemente creaste una cuenta con este correo electrónico.
-| Haz clic en el enlace de abajo para verificar tu correo electrónico.
+| Sigue el enlace de abajo para confirmar tu cuenta.
 
 | #{url}
+
+| Si no creaste una cuenta, ignora este mensaje.

@@ -20,14 +20,14 @@ export const signup = async (req: Request, res: Response) => {
 
   const user = User.create({ name, email })
   user.setPassword(password)
-  user.token = cryptoService.generateConfirmationToken()
+  user.token = cryptoService.generateToken()
   await user.save()
 
   mailService.sendConfirmationLink(user)
 
   req.flash(
     'registered user',
-    `Revisa tu bandeja de entrada. Acabamos de enviarte un correo electrónico a ${email} para verificar tu correo.`
+    'Te hemos enviado instrucciones para verificar tu correo.'
   )
 
   res.redirect('/auth/login')
@@ -42,9 +42,9 @@ export const confirm = async (req: Request, res: Response) => {
     user.token = ''
     await user.save()
     res.render('auth/confirm')
+  } else {
+    commonUtils.abort(404, 'Not found')
   }
-
-  commonUtils.abort(404)
 }
 
 export const loginForm = (_req: Request, res: Response) => {

@@ -10,38 +10,39 @@ block content
     h2(class="text-2xl text-center font-extrabold")= pageTitle
 
     div(class="mt-8 mx-auto max-w-sm")
-      div(class="bg-white py-8 px-8 shadow")
-        form(class="space-y-5" method='POST' action='/auth/login' novalidate)
-          +csrf
-          if flashes['registered user']
-            p(class="bg-amber-100 p-2 text-center")= flashes['registered user']
-          div
-            input(
-              class="w-full border border-gray-300 rounded px-3 py-1 outline-none placeholder-gray-500 focus:border-indigo-500"
-              name="email"
-              type="email"
-              placeholder="Correo electrónico"
-              value= old('email')
-            )
-            +error('email')
-          div
-            input(
-              class="w-full border border-gray-300 rounded px-3 py-1 outline-none placeholder-gray-500 focus:border-indigo-500"
-              name="password"
-              type="password"
-              placeholder="Contraseña"
-            )
-            +error('password')
-          div
-            input(
-              class="bg-indigo-600 w-full rounded py-2 hover:bg-indigo-700 text-white text-sm font-bold cursor-pointer"
-              type="submit"
-              value="Iniciar sesión"
-            )
-          a(
-            class="block text-center text-sm text-indigo-500 hover:text-indigo-600"
-            href="/auth/request-recover"
-          ) ¿Olvidaste tu contraseña?
+      form(class="bg-white py-8 px-8 shadow" method='POST' action='/auth/login' noValidate)
+        +csrf
+        if flashes['registered user']
+          div(class="mb-5 bg-amber-100 p-2 text-center")
+            h3(class="font-bold") Revisa tu correo electrónico
+            p= flashes['registered user']
+        div(class="mb-5")
+          input(
+            class="w-full border border-gray-300 rounded px-3 py-1 outline-none placeholder-gray-500 focus:border-indigo-500"
+            name="email"
+            type="email"
+            placeholder="Correo electrónico"
+            value= old('email')
+          )
+          +error('email')
+        div(class="mb-5")
+          input(
+            class="w-full border border-gray-300 rounded px-3 py-1 outline-none placeholder-gray-500 focus:border-indigo-500"
+            name="password"
+            type="password"
+            placeholder="Contraseña"
+          )
+          +error('password')
+        div(class="mb-5")
+          input(
+            class="bg-indigo-600 w-full rounded py-2 hover:bg-indigo-700 text-white text-sm font-bold cursor-pointer"
+            type="submit"
+            value="Iniciar sesión"
+          )
+        a(
+          class="block text-center text-sm text-indigo-500 hover:text-indigo-600"
+          href="/auth/request-recover"
+        ) ¿Olvidaste tu contraseña?
 
       div(class="bg-white mt-4 py-6 px-8 shadow text-center text-sm")
         p ¿No tienes una cuenta?
