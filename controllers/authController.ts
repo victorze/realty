@@ -33,14 +33,14 @@ export const confirm = async (req: Request, res: Response) => {
   const { token } = req.params
   const user = await User.findOneBy({ token })
 
-  if (user && !user.emailVerified) {
+  if (user) {
     user.emailVerified = true
     user.token = ''
     await user.save()
-    res.render('auth/confirm')
-  } else {
-    common.abort(404, 'Not found')
+    return res.render('auth/confirm')
   }
+
+  common.abort(404)
 }
 
 export const loginForm = (_req: Request, res: Response) => {
@@ -89,12 +89,8 @@ export const requestRecover = async (req: Request, res: Response) => {
 export const resetPasswordForm = async (req: Request, res: Response) => {
   const { token } = req.params
   const user = await User.findOneBy({ token })
-
-  if (user) {
-    res.render('auth/reset-password')
-  } else {
-    common.abort(404)
-  }
+  if (!user) common.abort(404)
+  res.render('auth/reset-password')
 }
 
 export const resetPassword = async (req: Request, res: Response) => {
