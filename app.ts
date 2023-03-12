@@ -35,6 +35,7 @@ app.use(
 )
 app.use(flash())
 app.use((req, res, next) => {
+  res.locals.APP_NAME = env.APP_NAME
   res.locals.flashes = req.flash()
   res.locals.error = flashUtils.filterError(res.locals.flashes)
   res.locals.old = flashUtils.filterOld(res.locals.flashes)
