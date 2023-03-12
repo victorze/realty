@@ -25,11 +25,7 @@ export const signup = async (req: Request, res: Response) => {
 
   mailService.sendConfirmationLink(user)
 
-  req.flash(
-    'registered user',
-    'Te hemos enviado instrucciones para verificar tu correo.'
-  )
-
+  req.flash('registered user', 'Revisa tu correo electrónico')
   res.redirect('/auth/login')
 }
 
@@ -56,12 +52,16 @@ export const login = async (req: Request, res: Response) => {
   const user = await User.findOneBy({ email })
 
   if (user && (await crypto.check(password, user.password))) {
-    res.redirect('/')
-  } else {
-    req.flash('old.email', email)
-    req.flash('err.password', 'La contraseña es incorreta')
-    res.redirect('back')
+    if (!user.emailVerified) {
+      req.flash('unverified email', 'Correo no verificado')
+      return res.redirect('back')
+    }
+    return res.redirect('/')
   }
+
+  req.flash('old.email', email)
+  req.flash('err.password', 'La contraseña es incorreta')
+  res.redirect('back')
 }
 
 export const requestRecoverForm = (_req: Request, res: Response) => {

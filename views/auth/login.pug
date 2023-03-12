@@ -14,8 +14,12 @@ block content
         +csrf
         if flashes['registered user']
           div(class="mb-5 bg-amber-100 p-2 text-center")
-            h3(class="font-bold") Revisa tu correo electrónico
-            p= flashes['registered user']
+            h3(class="font-bold")= flashes['registered user']
+            p Te hemos enviado instrucciones para verificar tu correo.
+        if flashes['unverified email']
+          div(class="mb-5 bg-red-200 p-2 text-center")
+            h3(class="font-bold")= flashes['unverified email']
+            p Tu correo electrónico aún no ha sido verificado.
         div(class="mb-5")
           input(
             class="w-full border border-gray-300 rounded px-3 py-1 outline-none placeholder-gray-500 focus:border-indigo-500"
