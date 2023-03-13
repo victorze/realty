@@ -53,6 +53,9 @@ app.use('/auth', routes)
 app.get('/', (_req, res) => {
   res.send('Home')
 })
+app.get('/private', middleware.auth, (_req, res) => {
+  res.send('Private')
+})
 
 app.use(middleware.notFound)
 app.use(middleware.handleErrors)

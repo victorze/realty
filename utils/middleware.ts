@@ -88,3 +88,11 @@ export const csrf = () => {
     },
   ]
 }
+
+export const auth = (req: Request, res: Response, next: NextFunction) => {
+  if (req.session.user) {
+    next()
+  } else {
+    res.redirect('/auth/login')
+  }
+}

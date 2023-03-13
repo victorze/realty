@@ -3,7 +3,10 @@ import { User } from '../models'
 import { mailService } from '../services'
 import { common, crypto } from '../utils'
 
-export const signupForm = (_req: Request, res: Response) => {
+export const signupForm = (req: Request, res: Response) => {
+  if (req.user) {
+    return res.redirect('/private')
+  }
   res.render('auth/signup')
 }
 
@@ -43,7 +46,10 @@ export const confirm = async (req: Request, res: Response) => {
   common.abort(404)
 }
 
-export const loginForm = (_req: Request, res: Response) => {
+export const loginForm = (req: Request, res: Response) => {
+  if (req.user) {
+    return res.redirect('/private')
+  }
   res.render('auth/login')
 }
 
@@ -56,12 +62,15 @@ export const login = async (req: Request, res: Response) => {
       req.flash('unverified email', 'Correo no verificado')
       return res.redirect('back')
     }
-    return res.redirect('/')
+    req.session.regenerate(() => {
+      req.session.user = user
+      res.redirect('/private')
+    })
+  } else {
+    req.flash('old.email', email)
+    req.flash('err.password', 'La contraseña es incorreta')
+    res.redirect('back')
   }
-
-  req.flash('old.email', email)
-  req.flash('err.password', 'La contraseña es incorreta')
-  res.redirect('back')
 }
 
 export const requestRecoverForm = (_req: Request, res: Response) => {
