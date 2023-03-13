@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 import { User } from '../models'
 import { mailService } from '../services'
-import { common, crypto } from '../utils'
+import { http, crypto } from '../utils'
 
 export const signupForm = (req: Request, res: Response) => {
   if (req.user) {
@@ -43,7 +43,7 @@ export const confirm = async (req: Request, res: Response) => {
     return res.render('auth/confirm')
   }
 
-  common.abort(404)
+  http.abort(404)
 }
 
 export const loginForm = (req: Request, res: Response) => {
@@ -98,7 +98,7 @@ export const requestRecover = async (req: Request, res: Response) => {
 export const resetPasswordForm = async (req: Request, res: Response) => {
   const { token } = req.params
   const user = await User.findOneBy({ token })
-  if (!user) common.abort(404)
+  if (!user) http.abort(404)
   res.render('auth/reset-password')
 }
 

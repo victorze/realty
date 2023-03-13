@@ -20,7 +20,6 @@ export const DB_PASSWORD = process.env.DB_PASSWORD
 
 export const DB_URL_SESSION = process.env.DB_URL_SESSION
 
-export const MAIL_MAILER = process.env.MAIL_MAILER
 export const MAIL_HOST = process.env.MAIL_HOST
 export const MAIL_PORT = process.env.MAIL_PORT
 export const MAIL_USERNAME = process.env.MAIL_USERNAME

@@ -1,4 +1,4 @@
-export * as common from './common'
+export * as http from './http'
 export * as crypto from './crypto'
 export * as flash from './flash'
 export * as logger from './logger'
