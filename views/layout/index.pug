@@ -9,7 +9,8 @@ html(lang="es")
     title= pageTitle ? pageTitle + ' · ' + APP_NAME : APP_NAME
     link(href='/css/styles.css' rel='stylesheet')
   body(class="min-h-screen bg-gray-50")
-    include header
+    if user
+      include header
 
     main(class="container pt-10 mx-auto px-2")
       block content
