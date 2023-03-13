@@ -1,8 +1,10 @@
-extends ../layout
+extends ../layout/index
+
+block vars
+  - var pageTitle='Cuenta verificada'
 
 block content
-  div
-    div(class="pt-20 text-center")
-      h1(class="mb-6 text-slate-800 text-2xl font-bold") Cuenta verificada
-      p(class="text-slate-800 text-lg") !Felicidades! Tu cuenta ha sido verificada
-      a(class="block mt-4 text-indigo-500 hover:text-indigo-600" href="/auth/login") Iniciar sessión
+  div(class="pt-20 text-center")
+    h1(class="mb-4 text-slate-800 text-2xl font-bold")= pageTitle
+    p(class="mb-4 text-slate-800 text-lg") !Felicidades! Tu cuenta ha sido verificada.
+    +link('/auth/login', 'Iniciar sessión')

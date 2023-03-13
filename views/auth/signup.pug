@@ -1,31 +1,24 @@
-extends ../layout
-include _mixins
+extends ../layout/index
 
 block vars
   - var pageTitle='Crear una cuenta'
 
 block content
-  div(class="py-10")
-    +header(pageTitle)
+  +title(pageTitle)
 
-    div(class="mt-8 mx-auto max-w-sm")
-      form(class="bg-white py-8 px-8 shadow" method='POST' action='/auth/signup' noValidate)
+  div(class="mt-8 mx-auto max-w-sm")
+    div(class="bg-white p-8 shadow")
+      form(class="flex flex-col gap-y-5" method='POST' action='/auth/signup' noValidate)
         +csrf
-        div(class="mb-5")
-          +input('name')(placeholder="Nombre" value= old('name'))
-          +error('name')
-        div(class="mb-5")
-          +input('email')(type="email" placeholder="Correo electrónico" value= old('email'))
-          +error('email')
-        div(class="mb-5")
-          +input('password')(type="password" placeholder="Contraseña")
-          +error('password')
         div
-          +submit('Regístrate')
+          +input('name')(placeholder="Nombre")
+        div
+          +input('email')(type="email" placeholder="Correo electrónico")
+        div
+          +input('password')(type="password" placeholder="Contraseña")(value="")
+        div
+          +submit('Regístrate')(class="w-full")
 
-      div(class="bg-white mt-4 py-6 px-8 shadow text-center text-sm")
-        p ¿Tienes una cuenta?
-          a(
-            class="text-indigo-500 hover:text-indigo-600"
-            href="/auth/login"
-          ) #{' '} Inicia sesión
+    div(class="bg-white mt-4 py-4 shadow text-center text-sm")
+      p ¿Tienes una cuenta? #{' '}
+        +link('/auth/login', 'Inicia sesión')

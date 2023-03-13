@@ -1,8 +1,0 @@
-mixin csrf
-  input(type='hidden' name='_token' value= csrfToken())
-
-mixin error(name)
-  if locals.error(name)
-    each error in locals.error(name)
-      span(class="block text-sm text-red-700")
-        | #{error}

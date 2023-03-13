@@ -1,4 +1,4 @@
-extends ../layout
+extends ../layout/index
 
 block vars
   - var pageTitle='Problemas en el servidor'
@@ -9,5 +9,4 @@ block content
       | Ha ocurrido un problema en el servidor
     p(class="mt-4 text-slate-700")
       | Si el error persiste, por favor comuniquese con el administrador del sitio.
-    a(class="block mt-8 text-indigo-700" href="/")
-      | Volver a #{APP_NAME}
+    +link('/', `Volver a ${APP_NAME}`)

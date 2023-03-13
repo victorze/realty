@@ -1,31 +1,25 @@
-extends ../layout
-include _mixins
+extends ../layout/index
 
 block vars
   - var pageTitle='¿Olvidaste tu contraseña?'
 
 block content
-  div(class="py-10")
-    +header(pageTitle)
+  +title(pageTitle)
 
-    div(class="mt-8 mx-auto max-w-sm")
-      div(class="bg-white py-8 px-8 shadow" )
-        if flashes['request recover']
-          +alert(flashes['request recover'], 'Te hemos enviado instrucciones para restablecer tu contraseña.')
-        if flashes['unverified email']
-          +alert(flashes['unverified email'], 'Tu correo electrónico aún no ha sido verificado.', 'danger')
+  div(class="mt-8 mx-auto max-w-sm")
+    div(class="bg-white p-8 shadow" )
+      if flashes['request recover']
+        +alert(flashes['request recover'], 'Te hemos enviado instrucciones para restablecer tu contraseña.')
+      if flashes['unverified email']
+        +alert(flashes['unverified email'], 'Tu correo electrónico aún no ha sido verificado.', 'danger')
 
-        form(method='POST' action='/auth/request-recover' noValidate)
-          +csrf
-          p(class="mb-5") Ingresa tu correo electrónico y te enviaremos instrucciones para restablecer tu contraseña.
-          div(class="mb-5")
-            +input('email')(type="email" placeholder="Correo electrónico" value= old('email'))
-            +error('email')
-          div
-            +submit('Enviar enlace de restablecimiento')
+      form(class="flex flex-col gap-y-5" method='POST' action='/auth/request-recover' noValidate)
+        +csrf
+        p Ingresa tu correo electrónico y te enviaremos instrucciones para restablecer tu contraseña.
+        div
+          +input('email')(type="email" placeholder="Correo electrónico")
+        div
+          +submit('Enviar enlace de restablecimiento')(class="w-full")
 
-      div(class="bg-white mt-4 py-6 px-8 shadow text-center text-sm")
-        a(
-          class="text-indigo-500 hover:text-indigo-600"
-          href="/auth/login"
-        ) Volver al inicio de sesión
+    div(class="bg-white mt-4 py-4 shadow text-center text-sm")
+      +link('/auth/login', 'Volver al inicio de sesión')
