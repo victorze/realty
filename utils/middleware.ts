@@ -17,7 +17,7 @@ export const requestLogger = (
 }
 
 export const notFound = (_req: Request, _res: Response, next: NextFunction) => {
-  const err = new Error('Resource not found')
+  const err = new Error('Not Found')
   err.status = 404
   next(err)
 }
