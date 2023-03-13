@@ -1,8 +1,7 @@
 import 'express-async-errors'
 import { Router } from 'express'
-import { validationService as v } from './services'
-import { authController } from './controllers'
-
+import { validationService as v } from '../services'
+import { authController } from '../controllers'
 const route = Router()
 
 route.get('/signup', authController.signupForm)

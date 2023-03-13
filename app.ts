@@ -49,7 +49,7 @@ app.use((req, res, next) => {
 app.use(middleware.csrf())
 app.use(middleware.requestLogger)
 
-app.use('/auth', routes)
+app.use('/', routes)
 app.get('/', (_req, res) => {
   res.send('Home')
 })
