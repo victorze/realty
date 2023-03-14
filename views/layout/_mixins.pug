@@ -9,6 +9,7 @@ mixin title(title)
 mixin input(name)
   input(
     class="w-full border border-gray-300 rounded outline-none px-3 py-1 placeholder-gray-500 focus:border-indigo-500"
+    id= name
     name= name
     value= old(name)
   )&attributes(attributes)
@@ -41,3 +42,21 @@ mixin error(name)
   if locals.error(name)
     each error in locals.error(name)
       span(class="block text-sm text-red-700")= error
+
+mixin label(content)
+  label(class="block mb-1 text-sm text-gray-600 font-bold")&attributes(attributes)= content
+
+mixin select(name, placeholder = 'Elige una opcion')
+  select(
+    class="w-full border border-gray-300 rounded outline-none px-3 py-1 focus:border-indigo-500"
+    id= name
+    name= name
+  )
+    option(class="text-gray-500" value="")= placeholder
+    if block
+     block
+
+mixin optionNumbers(max = 5)
+  - let n = 1
+  while n <= max
+    option(value= n)= n++

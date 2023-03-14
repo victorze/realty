@@ -1,0 +1,55 @@
+extends ../layout/index
+
+block vars
+  - let pageTitle = 'Crear propiedad'
+
+block append head
+  link(href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css" rel="stylesheet" crossorigin)
+  script(src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js" defer="true" crossorigin)
+  script(src="https://unpkg.com/esri-leaflet@3.0.8/dist/esri-leaflet.js" defer="true" crossorigin)
+  script(src="https://unpkg.com/esri-leaflet-geocoder@2.2.13/dist/esri-leaflet-geocoder.js" defer="true" crossorigin)
+  script(src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-geosearch/2.7.0/bundle.min.js" defer="true" crossorigin)
+  script(src="/js/map.js" defer="true")
+
+block content
+  +title(pageTitle)
+
+  div(class="bg-white mt-10 mx-auto rounded max-w-4xl p-8 shadow ")
+    form(class="flex flex-col gap-6")
+      +csrf
+      div(class="flex flex-col gap-4")
+        div
+          h3(class="leading-6 text-lg text-gray-900 font-medium") Información general
+          p(class="text-gray-600") Añade información sobre la propiedad en venta
+        div
+          +label('Título del anuncio')(for="title")
+          +input('title')(placeholder="Título propiedad, ej. Casa en la playa")
+        div(class="space-y-4 md:space-y-0 md:flex md:gap-4")
+          div(class="md:w-1/2")
+            +label('Categoría')(for="category")
+            +select('category')
+          div(class="md:w-1/2")
+            +label('Precio')(for="price")
+            +select('price')
+        div(class="space-y-4 md:space-y-0 md:flex md:gap-4")
+          div(class="md:w-1/3")
+            +label('Habitaciones')(for="roomCount")
+            +select('roomCount')
+              +optionNumbers
+          div(class="md:w-1/3")
+            +label('Estacionamientos')(for="parkingCount")
+            +select('parkingCount')
+              +optionNumbers
+          div(class="md:w-1/3")
+            +label('Baños')(for="wcCount")
+            +select('wcCount')
+              +optionNumbers
+        div(class="border-gray-200, border-t py-4")
+          h3(class="leading-6 text-lg text-gray-900 font-medium") Ubicación
+          p(class="text-gray-600") Ubica la propiedad en el mapa
+          div(id="map" class="mt-4 h-96")
+          div
+            p(id="street-info" class="mt-2")
+          input(type="hidden" name="street" id="street")
+          input(type="hidden" name="lat" id="lat")
+          input(type="hidden" name="lng" id="lng")
