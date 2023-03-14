@@ -24,6 +24,10 @@ block content
         div
           +label('Título del anuncio')(for="title")
           +input('title')(placeholder="Título propiedad, ej. Casa en la playa")
+        div
+          +label('Descripción')(for="description")
+          +textarea('description')(placeholder="Descripción de la propiedad")
+
         div(class="space-y-4 md:space-y-0 md:flex md:gap-4")
           div(class="md:w-1/2")
             +label('Categoría')(for="category")
