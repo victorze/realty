@@ -5,7 +5,8 @@
   "main": "main.ts",
   "scripts": {
     "dev": "NODE_ENV=development ts-node-dev --files ./main.ts",
-    "seed": "ts-node ./config/seeder.ts",
+    "db:seed": "ts-node ./database/seeder.ts",
+    "db:session": "ts-node ./database/session.ts",
     "build": "rm -rf ./build && tsc && cp -r ./views ./build",
     "start": "NODE_ENV=production node build/main.js",
     "dev:css": "tailwindcss -i ./public/css/tailwind.css -o ./public/css/styles.css --watch",
