@@ -26,20 +26,22 @@ mixin textarea(name)
   )&attributes(attributes)= old(name)
   +error(name)
 
-mixin select(name, placeholder = 'Elige una opcion')
+mixin select(name, placeholder = '- Elige una opcion -')
   select(
     class="w-full border border-gray-300 rounded outline-none px-3 py-1 focus:border-indigo-500"
     id= name
     name= name
+    value= old(name)
   )
     option(class="text-gray-500" value="")= placeholder
     if block
-     block
+      block
+  +error(name)
 
-mixin optionNumbers(max = 5)
+mixin optionNumbers(name, max = 5)
   - let n = 1
   while n <= max
-    option(value= n)= n++
+    option(value= n selected= (old(name) == n))= n++
 
 mixin submit(value)
   input(

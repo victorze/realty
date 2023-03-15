@@ -15,50 +15,53 @@ block content
   +title(pageTitle)
 
   div(class="bg-white mt-10 mx-auto rounded max-w-4xl p-8 shadow ")
-    form(class="flex flex-col gap-6")
+    form(class="flex flex-col gap-4" method="POST" action="/properties")
       +csrf
-      div(class="flex flex-col gap-4")
-        div
-          h3(class="leading-6 text-lg text-gray-900 font-medium") Información general
-          p(class="text-gray-600") Añade información sobre la propiedad en venta
-        div
-          +label('Título del anuncio')(for="title")
-          +input('title')(placeholder="Título propiedad, ej. Casa en la playa")
-        div
-          +label('Descripción')(for="description")
-          +textarea('description')(placeholder="Descripción de la propiedad")
+      div
+        h3(class="leading-6 text-lg text-gray-900 font-medium") Información general
+        p(class="text-gray-600") Añade información sobre la propiedad en venta
+      div
+        +label('Título del anuncio')(for="title")
+        +input('title')(placeholder="Título propiedad, ej. Casa en la playa")
+      div
+        +label('Descripción')(for="description")
+        +textarea('description')(placeholder="Descripción de la propiedad" rows="3")
 
-        div(class="space-y-4 md:space-y-0 md:flex md:gap-4")
-          div(class="md:w-1/2")
-            +label('Categoría')(for="category")
-            +select('category')
-              each category in categories
-                option(value=category.id)= category.name
-          div(class="md:w-1/2")
-            +label('Precio')(for="price")
-            +select('price')
-              each price in prices
-                option(value=price.id)= price.range
-        div(class="space-y-4 md:space-y-0 md:flex md:gap-4")
-          div(class="md:w-1/3")
-            +label('Habitaciones')(for="roomCount")
-            +select('roomCount')
-              +optionNumbers
-          div(class="md:w-1/3")
-            +label('Estacionamientos')(for="parkingCount")
-            +select('parkingCount')
-              +optionNumbers
-          div(class="md:w-1/3")
-            +label('Baños')(for="wcCount")
-            +select('wcCount')
-              +optionNumbers
+      div(class="space-y-4 md:space-y-0 md:flex md:gap-4")
+        div(class="md:w-1/2")
+          +label('Categoría')(for="category")
+          +select('category')
+            each category in categories
+              option(value=category.id selected= (old('category') == category.id))= category.name
+        div(class="md:w-1/2")
+          +label('Precio')(for="price")
+          +select('price')
+            each price in prices
+              option(value=price.id selected= (old('price') == price.id))= price.range
+      div(class="space-y-4 md:space-y-0 md:flex md:gap-4")
+        div(class="md:w-1/3")
+          +label('Habitaciones')(for="roomCount")
+          +select('roomCount')
+            +optionNumbers('roomCount')
+        div(class="md:w-1/3")
+          +label('Estacionamientos')(for="parkingCount")
+          +select('parkingCount')
+            +optionNumbers('parkingCount')
+        div(class="md:w-1/3")
+          +label('Baños')(for="wcCount")
+          +select('wcCount')
+            +optionNumbers('wcCount')
 
-        div(class="border-gray-200, border-t py-4")
-          h3(class="leading-6 text-lg text-gray-900 font-medium") Ubicación
-          p(class="text-gray-600") Ubica la propiedad en el mapa
-          div(id="map" class="mt-4 h-96")
-          div
-            p(id="street-info" class="mt-2")
-          input(type="hidden" name="street" id="street")
-          input(type="hidden" name="lat" id="lat")
-          input(type="hidden" name="lng" id="lng")
+      div(class="border-gray-200, border-t py-4")
+        h3(class="leading-6 text-lg text-gray-900 font-medium") Ubicación
+        p(class="text-gray-600") Ubica la propiedad en el mapa
+        +error('lat')
+
+        div(id="map" class="mt-4 h-96")
+        div
+          p(id="street-info" class="mt-2")
+        input(type="hidden" name="street" id="street" value= old('street'))
+        input(type="hidden" name="lat" id="lat" value= old('lat'))
+        input(type="hidden" name="lng" id="lng" value= old('lng'))
+      div(class="text-center")
+        +submit('Añadir imagen')

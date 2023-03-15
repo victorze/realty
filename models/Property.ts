@@ -9,7 +9,7 @@ export class Property extends Model {
   @Column({ length: 100 })
   title: string
 
-  @Column('text')
+  @Column({ type: 'text' })
   description: string
 
   @Column()
@@ -21,7 +21,7 @@ export class Property extends Model {
   @Column('integer')
   wcCount: number
 
-  @Column({ length: 60 })
+  @Column()
   street: string
 
   @Column()

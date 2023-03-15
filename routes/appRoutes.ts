@@ -1,8 +1,12 @@
 import { Router } from 'express'
 import { propertyController } from '../controllers'
+import { validationService as v } from '../services'
+import { auth } from '../utils/middleware'
+
 const route = Router()
 
 route.get('/properties', propertyController.index)
-route.get('/properties/create', propertyController.create)
+route.get('/properties/create', auth, propertyController.create)
+route.post('/properties', [auth, v.property], propertyController.store)
 
 export default route

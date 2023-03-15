@@ -1,7 +1,12 @@
 ;(() => {
-  const lat = -15.4973474
-  const lng = -70.1353139
+  DEFAULT_LATITUDE = -15.4973474
+  DEFAULT_LONGITUDE = -70.1353139
+  const lat = document.querySelector('#lat').value || DEFAULT_LATITUDE
+  const lng = document.querySelector('#lng').value || DEFAULT_LONGITUDE
   const ZOOM = 15
+  document.querySelector('#street-info').textContent =
+    document.querySelector('#street').value
+
   const map = L.map('map').setView([lat, lng], ZOOM)
 
   // using provider and geocoder

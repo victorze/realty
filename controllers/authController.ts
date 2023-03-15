@@ -98,8 +98,8 @@ export const requestRecover = async (req: Request, res: Response) => {
 export const resetPasswordForm = async (req: Request, res: Response) => {
   const { token } = req.params
   const user = await User.findOneBy({ token })
-  if (!user) http.abort(404)
-  res.render('auth/reset-password')
+  if (user) return res.render('auth/reset-password')
+  http.abort(404)
 }
 
 export const resetPassword = async (req: Request, res: Response) => {
