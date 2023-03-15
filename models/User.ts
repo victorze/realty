@@ -1,5 +1,6 @@
-import { Entity, Column } from 'typeorm'
+import { Entity, Column, OneToMany } from 'typeorm'
 import { Model } from './Model'
+import { Property } from './Property'
 
 @Entity()
 export class User extends Model {
@@ -17,4 +18,7 @@ export class User extends Model {
 
   @Column({ default: false })
   emailVerified: boolean
+
+  @OneToMany(() => Property, (property) => property.owner)
+  properties: Property[]
 }
