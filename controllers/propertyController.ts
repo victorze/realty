@@ -14,9 +14,9 @@ export const create = async (_req: Request, res: Response) => {
 }
 
 export const store = async (req: Request, res: Response) => {
-  const property = Property.create(req.body as Property)
+  const property = Property.create(req.validated as Property)
   property.owner = req.user as User
   property.image = 'url image'
   await property.save()
-  res.json(req.body)
+  res.redirect('properties/index')
 }
