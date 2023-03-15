@@ -42,7 +42,8 @@ export const validate = (schema: z.ZodObject<any> | z.ZodEffects<any>) => {
     const result = schema.safeParse(req.body)
 
     if (result.success) {
-      req.body = result.data
+      req.validated = result.data
+      req.body = { ...req.body, ...req.validated }
       next()
     } else {
       const errors = result.error.flatten().fieldErrors

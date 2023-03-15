@@ -41,7 +41,7 @@ app.use((req, res, next) => {
   res.locals.old = flash.filterOld(res.locals.flashes)
   res.locals.user = req.session.user
   req.user = req.session.user
-  console.log(res.locals.flashes)
+  console.log('Flash', res.locals.flashes)
   console.log(req.session)
   next()
 })

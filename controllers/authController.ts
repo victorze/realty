@@ -54,7 +54,7 @@ export const loginForm = (req: Request, res: Response) => {
 }
 
 export const login = async (req: Request, res: Response) => {
-  const { email, password } = req.body
+  const { email, password, rememberMe } = req.body
   const user = await User.findOneBy({ email })
 
   if (user && (await crypto.check(password, user.password))) {
@@ -63,6 +63,9 @@ export const login = async (req: Request, res: Response) => {
       return res.redirect('back')
     }
     req.session.regenerate(() => {
+      if (rememberMe) {
+        req.session.cookie.maxAge = 1000 * 60 * 60 * 24 * 365 // 365 days
+      }
       req.session.user = user
       res.redirect('/private')
     })
