@@ -1,9 +1,8 @@
 import 'express-session'
-import { User } from '../../models'
 
 declare module 'express-session' {
   interface SessionData {
-    user?: User
+    user?: SessionUser
     csrfToken?: string[]
   }
 }

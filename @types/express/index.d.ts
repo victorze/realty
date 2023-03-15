@@ -1,10 +1,6 @@
-import { User } from '../../models'
-
-declare global {
-  namespace Express {
-    interface Request {
-      user?: User
-      validated: object
-    }
+declare namespace Express {
+  interface Request {
+    user?: SessionUser
+    validated: object
   }
 }

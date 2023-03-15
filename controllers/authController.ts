@@ -66,7 +66,11 @@ export const login = async (req: Request, res: Response) => {
       if (rememberMe) {
         req.session.cookie.maxAge = 1000 * 60 * 60 * 24 * 365 // 365 days
       }
-      req.session.user = user
+      req.session.user = {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+      }
       res.redirect('/private')
     })
   } else {
