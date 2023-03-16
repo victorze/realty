@@ -5,4 +5,10 @@ header(class="bg-indigo-600 container flex justify-between mx-auto items-center 
   nav(class="text-sm text-white font-bold md:flex md:items-center md:gap-3")
     a(href="") Mis propiedades
     a(href="") Mi perfil
-    a(class="bg-indigo-800 rounded-lg p-2 px-10" href="") Cerrar sesión
+    a(
+      class="bg-indigo-800 rounded-lg p-2 px-10"
+      onclick="event.preventDefault(); document.getElementById('frm-logout').submit();"
+      href="#"
+    ) Cerrar sesión
+    form(method="POST" action="/auth/logout" class="hidden" id="frm-logout")
+      +csrf

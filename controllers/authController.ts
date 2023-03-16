@@ -83,6 +83,12 @@ export const login = async (req: Request, res: Response) => {
   }
 }
 
+export const logout = (req: Request, res: Response) => {
+  req.session.destroy(() => {
+    res.redirect('/')
+  })
+}
+
 export const requestRecoverForm = (_req: Request, res: Response) => {
   res.render('auth/request-recover')
 }
