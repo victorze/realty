@@ -56,6 +56,7 @@ export const loginForm = (req: Request, res: Response) => {
 export const login = async (req: Request, res: Response) => {
   const { email, password, rememberMe } = req.body
   const user = await User.findOneBy({ email })
+  const urlIntended = req.session.urlIntended
 
   if (user && (await crypto.check(password, user.password))) {
     if (!user.emailVerified) {
@@ -71,6 +72,8 @@ export const login = async (req: Request, res: Response) => {
         name: user.name,
         email: user.email,
       }
+
+      if (urlIntended) return res.redirect(urlIntended)
       res.redirect('/private')
     })
   } else {

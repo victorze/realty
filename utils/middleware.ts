@@ -94,6 +94,7 @@ export const auth = (req: Request, res: Response, next: NextFunction) => {
   if (req.session.user) {
     next()
   } else {
+    req.session.urlIntended = req.route.path
     res.redirect('/auth/login')
   }
 }
