@@ -130,6 +130,5 @@ export const resetPassword = async (req: Request, res: Response) => {
   }
 
   req.flash('account restored', 'Contraseña cambiada')
-
   res.redirect('/auth/login')
 }

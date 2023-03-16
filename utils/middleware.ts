@@ -65,25 +65,26 @@ export const csrf = () => {
     (req: Request, res: Response, next: NextFunction) => {
       res.locals.csrfToken = () => {
         const token = crypto.randomBytes(48).toString('base64')
-        if (req.session.csrfToken) {
-          req.session.csrfToken = [...req.session.csrfToken, token]
+        if (req.session.csrfTokens) {
+          req.session.csrfTokens = [...req.session.csrfTokens, token]
         } else {
-          req.session.csrfToken = [token]
+          req.session.csrfTokens = [token]
         }
         return token
       }
       next()
     },
     (req: Request, _res: Response, next: NextFunction) => {
+      const csrfToken = req.body._token || req.query._token
       if (
         req.method == 'POST' &&
-        !req.session.csrfToken?.includes(req.body._token)
+        !req.session.csrfTokens?.includes(csrfToken)
       ) {
         const err = new Error('CSRF token mismatch')
         err.status = 403
         throw err
       } else {
-        req.session.csrfToken = req.session.csrfToken?.slice(-5)
+        req.session.csrfTokens = req.session.csrfTokens?.slice(-5)
         next()
       }
     },
