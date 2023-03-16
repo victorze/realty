@@ -59,9 +59,28 @@ mixin link(href, content, aspect='')
   else
     a(class="text-indigo-500 hover:text-indigo-600" href= href)&attributes(attributes)= content
 
-mixin alert(title, message, type='')
-  div(class= `${type == 'danger' ? 'bg-red-200': 'bg-amber-100'} mb-5 p-2 text-center`)
-    h3(class="font-bold")= title
+mixin alert-success(message, title)
+  div(class="bg-green-200 p-2 rounded")
+    if title
+      p(class="font-bold")= title
+    p= message
+
+mixin alert-warning(message, title)
+  div(class="bg-amber-100 p-2 rounded")
+    if title
+      p(class="font-bold")= title
+    p= message
+
+mixin alert-danger(message, title)
+  div(class="bg-red-200 p-2 rounded")
+    if title
+      p(class="font-bold")= title
+    p= message
+
+mixin alert-info(message, title)
+  div(class="bg-sky-200 p-2 rounded")
+    if title
+      p(class="font-bold")= title
     p= message
 
 mixin title(title)

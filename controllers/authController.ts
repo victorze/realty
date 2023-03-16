@@ -89,11 +89,11 @@ export const logout = (req: Request, res: Response) => {
   })
 }
 
-export const requestRecoverForm = (_req: Request, res: Response) => {
-  res.render('auth/request-recover')
+export const forgotPasswordForm = (_req: Request, res: Response) => {
+  res.render('auth/forgot-password')
 }
 
-export const requestRecover = async (req: Request, res: Response) => {
+export const forgotPassword = async (req: Request, res: Response) => {
   const { email } = req.body
   const user = await User.findOneBy({ email })
 
@@ -107,7 +107,7 @@ export const requestRecover = async (req: Request, res: Response) => {
     mailService.sendResetPasswordLink(user)
   }
 
-  req.flash('request recover', 'Revisa tu correo electrónico')
+  req.flash('forgot password', 'Revisa tu correo electrónico')
   res.redirect('back')
 }
 
@@ -129,5 +129,7 @@ export const resetPassword = async (req: Request, res: Response) => {
     await user.save()
   }
 
-  res.redirect('/')
+  req.flash('account restored', 'Contraseña cambiada')
+
+  res.redirect('/auth/login')
 }

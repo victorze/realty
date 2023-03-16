@@ -18,5 +18,9 @@ export const store = async (req: Request, res: Response) => {
   property.owner = req.user as User
   property.image = 'url image'
   await property.save()
-  res.redirect('properties/index')
+  res.redirect('properties')
+}
+
+export const uploadForm = async (_req: Request, res: Response) => {
+  res.send('uploadForm')
 }
