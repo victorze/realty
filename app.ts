@@ -5,16 +5,7 @@ import pgSession from 'connect-pg-simple'
 import connectFlash from 'connect-flash'
 import routes from './routes'
 import { flash, middleware } from './utils'
-import { dbConfig, env } from './config'
-
-dbConfig.dataSource
-  .initialize()
-  .then(() => {
-    console.log('Data Source has been initialized!')
-  })
-  .catch((err) => {
-    console.error('Error during Data Source initialization:', err)
-  })
+import { env } from './config'
 
 const app = express()
 

@@ -1,7 +1,7 @@
 import { DataSource } from 'typeorm'
 import { env } from './index'
 
-export const dataSource = new DataSource({
+const dataSource = new DataSource({
   type: env.DB_CONNECTION as 'postgres' | 'mysql' | 'mongodb',
   host: env.DB_HOST,
   port: Number(env.DB_PORT),
@@ -15,3 +15,14 @@ export const dataSource = new DataSource({
   logging: env.NODE_ENV === 'development',
   synchronize: env.NODE_ENV !== 'production',
 })
+
+export const connect = () => {
+  dataSource
+    .initialize()
+    .then(() => {
+      console.log('Data Source has been initialized!')
+    })
+    .catch((err) => {
+      console.error('Error during Data Source initialization:', err)
+    })
+}
