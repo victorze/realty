@@ -64,7 +64,7 @@ export const csrf = () => {
   return [
     (req: Request, res: Response, next: NextFunction) => {
       res.locals.csrfToken = () => {
-        const token = crypto.randomBytes(48).toString('base64')
+        const token = crypto.randomBytes(48).toString('base64url')
         if (req.session.csrfTokens) {
           req.session.csrfTokens = [...req.session.csrfTokens, token]
         } else {
