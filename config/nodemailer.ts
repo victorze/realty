@@ -13,3 +13,5 @@ export const transporter = nodemailer.createTransport(
   },
   { from: `${env.APP_NAME} <${env.MAIL_FROM_ADDRESS}>` }
 )
+
+export const send = transporter.sendMail.bind(transporter)
