@@ -3,7 +3,19 @@ import { NextFunction, Request, Response } from 'express'
 import { MulterError } from 'multer'
 import { z } from 'zod'
 import { env, multer } from '../config'
-import { logger } from './index'
+import { flash, logger } from './index'
+
+export const locals = (req: Request, res: Response, next: NextFunction) => {
+  res.locals.APP_NAME = env.APP_NAME
+  res.locals.flashes = req.flash()
+  res.locals.error = flash.filterError(res.locals.flashes)
+  res.locals.old = flash.filterOld(res.locals.flashes)
+  res.locals.user = req.session.user
+  req.user = req.session.user
+  console.log('Flash', res.locals.flashes)
+  console.log(req.session)
+  next()
+}
 
 export const requestLogger = (
   req: Request,

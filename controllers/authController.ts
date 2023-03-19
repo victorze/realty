@@ -3,10 +3,10 @@ import { User } from '../models'
 import { mailService } from '../services'
 import { http, crypto } from '../utils'
 
+const REDIRECT_TO = '/' // after login
+
 export const signupForm = (req: Request, res: Response) => {
-  if (req.user) {
-    return res.redirect('/private')
-  }
+  if (req.user) return res.redirect(REDIRECT_TO)
   res.render('auth/signup')
 }
 
@@ -47,9 +47,7 @@ export const confirm = async (req: Request, res: Response) => {
 }
 
 export const loginForm = (req: Request, res: Response) => {
-  if (req.user) {
-    return res.redirect('/private')
-  }
+  if (req.user) return res.redirect(REDIRECT_TO)
   res.render('auth/login')
 }
 
@@ -74,7 +72,7 @@ export const login = async (req: Request, res: Response) => {
       }
 
       if (urlIntended) return res.redirect(urlIntended)
-      res.redirect('/private')
+      res.redirect(REDIRECT_TO)
     })
   } else {
     req.flash('old.email', email)
@@ -89,7 +87,8 @@ export const logout = (req: Request, res: Response) => {
   })
 }
 
-export const forgotPasswordForm = (_req: Request, res: Response) => {
+export const forgotPasswordForm = (req: Request, res: Response) => {
+  if (req.user) return res.redirect(REDIRECT_TO)
   res.render('auth/forgot-password')
 }
 
