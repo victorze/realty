@@ -1,9 +1,9 @@
-import { dbConfig } from '../config'
+import { typeorm } from '../config'
 
-dbConfig.dataSource
+typeorm.dataSource
   .initialize()
   .then(async () => {
-    await dbConfig.dataSource.query(`
+    await typeorm.dataSource.query(`
       CREATE TABLE "session" (
         "sid" varchar NOT NULL COLLATE "default",
         "sess" json NOT NULL,

@@ -1,7 +1,7 @@
 import { DataSource } from 'typeorm'
 import { env } from './index'
 
-const dataSource = new DataSource({
+export const dataSource = new DataSource({
   type: env.DB_CONNECTION as 'postgres' | 'mysql' | 'mongodb',
   host: env.DB_HOST,
   port: Number(env.DB_PORT),

@@ -1,5 +1,5 @@
 import { Category, Price } from '../models'
-import { dbConfig } from '../config'
+import { typeorm } from '../config'
 
 const categories = ['Casa', 'Departamento', 'Bodega', 'Terreno', 'Cabaña']
 const prices = [
@@ -15,7 +15,7 @@ const prices = [
   '+ $500,000 USD',
 ]
 
-dbConfig.dataSource
+typeorm.dataSource
   .initialize()
   .then(async () => {
     // seed categories

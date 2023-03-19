@@ -7,7 +7,6 @@ sendButton.addEventListener('click', (e) => {
   e.preventDefault()
   if (sendButton.classList.contains('is-submitting')) return
   updateFileInput()
-  console.log('click')
   sendButton.classList.add('is-submitting')
   document.querySelector('#form').submit()
 })
@@ -35,7 +34,12 @@ function displayImagePreview() {
   imagePreviewList.forEach((image, index) => {
     images += `<div style="position: relative; width: 410px;">
                 <img src="${URL.createObjectURL(image)}" alt="image">
-                <span style="position: absolute; top: -4px; right: 6px; cursor: pointer; font-size: 22px; color: white;" onclick="deleteImagePreview(${index})">&times;</span>
+                <span
+                  style="position: absolute; top: -4px; right: 6px; cursor: pointer; font-size: 22px; color: white;"
+                  onclick="deleteImagePreview(${index})"
+                >
+                  &times;
+                </span>
               </div>`
   })
   imagePreviewContainer.innerHTML = images
