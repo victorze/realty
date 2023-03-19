@@ -50,14 +50,14 @@ mixin submit(value)
     value= value
   )&attributes(attributes)
 
-mixin link(href, content, aspect='')
-  if aspect == 'btn'
-    a(
-      class="bg-indigo-600 rounded px-8 py-2 text-white text-sm font-bold hover:bg-indigo-700"
-      href= href
-    )&attributes(attributes)= content
-  else
-    a(class="text-indigo-500 hover:text-indigo-600" href= href)&attributes(attributes)= content
+mixin link(href, content)
+  a(class="text-indigo-500 hover:text-indigo-600" href= href)&attributes(attributes)= content
+
+mixin link-btn(href, content)
+  a(
+    class="bg-indigo-600 rounded px-8 py-2 text-white text-sm font-bold hover:bg-indigo-700"
+    href= href
+  )&attributes(attributes)= content
 
 mixin alert-success(message, title)
   div(class="bg-green-200 p-2 rounded")

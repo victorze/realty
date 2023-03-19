@@ -1,6 +1,7 @@
 declare namespace Express {
   interface Request {
     user?: SessionUser
-    validated: object
+    validated: any
+    uploadError: string
   }
 }

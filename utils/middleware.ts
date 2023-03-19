@@ -1,7 +1,8 @@
 import crypto from 'crypto'
 import { NextFunction, Request, Response } from 'express'
+import { MulterError } from 'multer'
 import { z } from 'zod'
-import { env } from '../config'
+import { env, multer } from '../config'
 import { logger } from './index'
 
 export const requestLogger = (
@@ -97,5 +98,29 @@ export const auth = (req: Request, res: Response, next: NextFunction) => {
   } else {
     req.session.urlIntended = req.route.path
     res.redirect('/auth/login')
+  }
+}
+
+export const upload = (fieldname: string) => {
+  return (req: Request, res: Response, next: NextFunction) => {
+    const upload = multer.upload.array(fieldname)
+
+    upload(req, res, (err) => {
+      if (err instanceof MulterError) {
+        if (err.message === 'File too large') {
+          req.uploadError = 'Archivo demasiado grande'
+          return next()
+        }
+        if (err.message === 'Too many files') {
+          req.uploadError = 'Demasiados archivos'
+          return next()
+        }
+        return next(err)
+      } else if (err) {
+        return next(err)
+      }
+
+      next()
+    })
   }
 }

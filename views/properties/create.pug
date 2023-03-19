@@ -16,12 +16,12 @@ block content
 
   div(class="bg-white mt-10 mx-auto rounded max-w-4xl p-8 shadow ")
     form(
-        class="flex flex-col gap-4"
-        method="POST"
-        action= `/properties?_token=${csrfToken()}`
-        enctype="multipart/form-data"
-      )
-      +csrf
+      class="flex flex-col gap-4"
+      method="POST"
+      action= `/properties?_token=${csrfToken()}`
+      enctype="multipart/form-data"
+      id="form"
+    )
       div
         h3(class="leading-6 text-lg text-gray-900 font-medium") Información general
         p(class="text-gray-600") Añade información sobre la propiedad en venta
@@ -57,16 +57,42 @@ block content
           +select('wcCount')
             +optionNumbers('wcCount')
 
-      div(class="border-gray-200")
+      div
         h3(class="leading-6 text-lg text-gray-900 font-medium") Ubicación
         p(class="text-gray-600") Ubica la propiedad en el mapa
         +error('lat')
 
         div(id="map" class="mt-2 h-96")
         div
-          p(id="street-info" class="mt-2")
+          p(id="street-info" class="mt-1")
         input(type="hidden" name="street" id="street" value= old('street'))
         input(type="hidden" name="lat" id="lat" value= old('lat'))
         input(type="hidden" name="lng" id="lng" value= old('lng'))
+      div
+        h3(class="leading-6 text-lg text-gray-900 font-medium") Fotos
+        p(class="text-gray-600") Sube algunas fotos de tu propiedad
+          +error('photos')
+        div
+          div(class="relative flex justify-center items-center mt-4 mx-auto max-w-md h-60 rounded-xl border-2 border-dashed border-gray-400 hover:opacity-90")
+            div(class="text-center text-gray-600")
+              +icon('upload')(class="mb-4 mx-auto h-8 w-8")
+              p Arrastra y suelta tus fotos aquí
+              p o
+              p(class="bg-indigo-50 mt-2 rounded border border-gray-400 py-1 px-4") Selecciona fotos de tu computadora
+            input(
+              class="absolute cursor-pointer w-full h-full opacity-0"
+              type="file"
+              name="photos"
+              id="file-input"
+              accept="image/png, image/jpeg, image/jpg"
+              multiple
+            )
+          div(class="mt-1 text-sm text-center text-gray-600")
+            p * Máximo 5 fotos
+            p * Cada foto no debe pesar más de 3MB
+        div(class="flex justify-center flex-wrap gap-2" id="image-preview")
       div(class="text-center")
-        +submit('Añadir imagen')
+        +link-btn('#', 'Crear propiedad')(class="inline-block" id="send-button")
+
+  script
+    include previewImage.js

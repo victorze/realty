@@ -1,7 +1,7 @@
 import nodemailer from 'nodemailer'
 import { env } from './index'
 
-export const transporter = nodemailer.createTransport(
+const transporter = nodemailer.createTransport(
   {
     host: env.MAIL_HOST,
     port: Number(env.MAIL_PORT),

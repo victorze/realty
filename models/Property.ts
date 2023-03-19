@@ -1,5 +1,6 @@
-import { Column, Entity, ManyToOne } from 'typeorm'
+import { Column, Entity, ManyToOne, OneToMany } from 'typeorm'
 import { Category } from './Category'
+import { Photo } from './Photo'
 import { Model } from './Model'
 import { Price } from './Price'
 import { User } from './User'
@@ -30,9 +31,6 @@ export class Property extends Model {
   @Column()
   lng: string
 
-  @Column()
-  image: string
-
   @Column({ default: false })
   published: boolean
 
@@ -44,4 +42,7 @@ export class Property extends Model {
 
   @ManyToOne(() => Price)
   price: Price
+
+  @OneToMany(() => Photo, (photo) => photo.property)
+  images: Photo[]
 }

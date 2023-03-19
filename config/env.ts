@@ -25,3 +25,7 @@ export const MAIL_PORT = process.env.MAIL_PORT
 export const MAIL_USERNAME = process.env.MAIL_USERNAME
 export const MAIL_PASSWORD = process.env.MAIL_PASSWORD
 export const MAIL_FROM_ADDRESS = process.env.MAIL_FROM_ADDRESS
+
+export const CLOUDINARY_CLOUD_NAME = process.env.CLOUDINARY_CLOUD_NAME
+export const CLOUDINARY_API_KEY = process.env.CLOUDINARY_API_KEY
+export const CLOUDINARY_API_SECRET = process.env.CLOUDINARY_API_SECRET
