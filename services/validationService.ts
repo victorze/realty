@@ -1,4 +1,5 @@
 import { z } from 'zod';
+
 import { middleware } from '../utils';
 
 const propertySchema = z.object({

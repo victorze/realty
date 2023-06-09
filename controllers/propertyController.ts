@@ -1,5 +1,7 @@
 import fs from 'fs/promises';
-import { Request, Response } from 'express';
+
+import type { Request, Response } from 'express';
+
 import { Category, Photo, Price, Property, User } from '../models';
 import { flash, storage } from '../utils';
 

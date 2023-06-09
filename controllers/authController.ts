@@ -1,7 +1,8 @@
-import { Request, Response } from 'express';
+import type { Request, Response } from 'express';
+
 import { User } from '../models';
 import { mailService } from '../services';
-import { http, crypto } from '../utils';
+import { crypto, http } from '../utils';
 
 const REDIRECT_TO = '/'; // after login
 
