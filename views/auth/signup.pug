@@ -1,24 +1,33 @@
 extends ../layout/index
 
 block vars
-  - var pageTitle='Crear una cuenta'
+  - var pageTitle = "Crear una cuenta"
 
 block content
   +title(pageTitle)
 
-  div(class="mt-8 mx-auto max-w-sm")
+  div(class="mx-auto mt-8 max-w-sm")
     div(class="bg-white p-8 shadow")
-      form(class="flex flex-col gap-y-5" method='POST' action='/auth/signup' noValidate)
+      form(
+        class="flex flex-col gap-y-5"
+        method="POST"
+        action="/auth/signup"
+        noValidate
+      )
         +csrf
         div
           +input('name')(placeholder="Nombre")
         div
           +input('email')(type="email" placeholder="Correo electrónico")
         div
-          +input('password')(type="password" placeholder="Contraseña" value="")
+          +input('password')(
+            type="password"
+            placeholder="Contraseña"
+            value=""
+          )
         div
           +submit('Regístrate')(class="w-full")
 
-    div(class="bg-white mt-4 py-4 shadow text-center text-sm")
-      p ¿Tienes una cuenta? #{' '}
+    div(class="mt-4 bg-white py-4 text-center text-sm shadow")
+      p ¿Tienes una cuenta? #{ ' ' }
         +link('/auth/login', 'Inicia sesión')

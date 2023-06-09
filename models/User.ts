@@ -1,24 +1,24 @@
-import { Entity, Column, OneToMany } from 'typeorm'
-import { Model } from './Model'
-import { Property } from './Property'
+import { Entity, Column, OneToMany } from 'typeorm';
+import { Model } from './Model';
+import { Property } from './Property';
 
 @Entity()
 export class User extends Model {
   @Column()
-  name: string
+  name: string;
 
   @Column({ unique: true })
-  email: string
+  email: string;
 
   @Column()
-  password: string
+  password: string;
 
   @Column({ nullable: true })
-  token: string
+  token: string;
 
   @Column({ default: false })
-  emailVerified: boolean
+  emailVerified: boolean;
 
   @OneToMany(() => Property, (property) => property.owner)
-  properties: Property[]
+  properties: Property[];
 }

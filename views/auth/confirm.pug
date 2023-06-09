@@ -1,10 +1,10 @@
 extends ../layout/index
 
 block vars
-  - var pageTitle='Cuenta verificada'
+  - var pageTitle = "Cuenta verificada"
 
 block content
   div(class="text-center")
-    h1(class="mb-4 text-slate-800 font-bold")= pageTitle
+    h1(class="mb-4 font-bold text-slate-800")= pageTitle
     p(class="mb-4 text-slate-800") !Felicidades! Tu cuenta ha sido verificada.
     +link('/auth/login', 'Iniciar sessión')

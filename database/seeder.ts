@@ -1,7 +1,7 @@
-import { Category, Price } from '../models'
-import { typeorm } from '../config'
+import { Category, Price } from '../models';
+import { typeorm } from '../config';
 
-const categories = ['Casa', 'Departamento', 'Bodega', 'Terreno', 'Cabaña']
+const categories = ['Casa', 'Departamento', 'Bodega', 'Terreno', 'Cabaña'];
 const prices = [
   '0 - $10,000 USD',
   '$10,000 - $30,000 USD',
@@ -13,30 +13,30 @@ const prices = [
   '$200,000 - $300,000 USD',
   '$300,000 - $500,000 USD',
   '+ $500,000 USD',
-]
+];
 
 typeorm.dataSource
   .initialize()
   .then(async () => {
     // seed categories
-    await Category.delete({})
+    await Category.delete({});
     for (const category of categories) {
-      const newCategory = new Category()
-      newCategory.name = category
-      await newCategory.save()
+      const newCategory = new Category();
+      newCategory.name = category;
+      await newCategory.save();
     }
 
     //seed prices
-    await Price.delete({})
+    await Price.delete({});
     for (const price of prices) {
-      const newPrice = new Price()
-      newPrice.range = price
-      await newPrice.save()
+      const newPrice = new Price();
+      newPrice.range = price;
+      await newPrice.save();
     }
 
-    process.exit()
+    process.exit();
   })
   .catch((error) => {
-    console.log(error)
-    process.exit(1)
-  })
+    console.log(error);
+    process.exit(1);
+  });

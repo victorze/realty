@@ -1,11 +1,11 @@
 extends ../layout/index
 
 block vars
-  - var pageTitle='Acceso prohibido'
+  - var pageTitle = "Acceso prohibido"
 
 block content
   div(class="pt-20 text-center")
-    p(class="font-bold text-slate-800 text-xl")= pageTitle
+    p(class="text-xl font-bold text-slate-800")= pageTitle
     p(class="my-8 text-slate-700")
       | El acceso al recurso solicitado está prohibido.
     +link('/', `Volver a ${APP_NAME}`)

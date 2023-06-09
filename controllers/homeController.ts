@@ -1,5 +1,5 @@
-import { Request, Response } from 'express'
+import { Request, Response } from 'express';
 
 export const index = (_req: Request, res: Response) => {
-  res.send('home')
-}
+  res.send('home');
+};

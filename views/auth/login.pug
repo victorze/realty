@@ -1,12 +1,12 @@
 extends ../layout/index
 
 block vars
-  - var pageTitle='Iniciar sesión'
+  - var pageTitle = "Iniciar sesión"
 
 block content
   +title(pageTitle)
 
-  div(class="mt-8 mx-auto max-w-sm")
+  div(class="mx-auto mt-8 max-w-sm")
     div(class="bg-white p-8 shadow")
       if flashes['registered user']
         div(class="mb-4 text-center")
@@ -14,24 +14,40 @@ block content
       if flashes['unverified email']
         div(class="mb-4 text-center")
           +alert-danger('Tu correo electrónico aún no ha sido verificado.', flashes['unverified email'])
-      if flashes['account restored']
+      if flashes["account restored"]
         div(class="mb-4 text-center")
           +alert-success('Pueden iniciar sesión con tu nueva contraseña.', flashes['account restored'])
 
-      form(class="flex flex-col gap-y-5" method='POST' action='/auth/login' noValidate)
+      form(
+        class="flex flex-col gap-y-5"
+        method="POST"
+        action="/auth/login"
+        noValidate
+      )
         +csrf
         div
-          +input('email')(type="email" placeholder="Correo electrónico")
+          +input('email')(
+            type="email"
+            placeholder="Correo electrónico"
+          )
         div
-          +input('password')(type="password" placeholder="Contraseña" value="")
+          +input('password')(
+            type="password"
+            placeholder="Contraseña"
+            value=""
+          )
         div
           div(class="mb-2 flex")
-            input(type="checkbox" id="rememberMe" name="rememberMe" checked)
+            input#rememberMe(
+              type="checkbox"
+              name="rememberMe"
+              checked
+            )
             label(class="ml-2 text-sm text-gray-700" for="rememberMe") Mantener la sesión iniciada
           +submit('Iniciar sessión')(class="w-full")
-        div(class="text-sm text-center")
+        div(class="text-center text-sm")
           +link('/auth/forgot-password', '¿Olvidaste tu contraseña?')
 
-    div(class="bg-white mt-4 py-4 shadow text-center text-sm")
-      p ¿No tienes una cuenta? #{' '}
+    div(class="mt-4 bg-white py-4 text-center text-sm shadow")
+      p ¿No tienes una cuenta? #{ ' ' }
         +link('/auth/signup', 'Regístrate')

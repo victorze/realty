@@ -5,15 +5,24 @@ doctype html
 block vars
 html(lang="es")
   head
-    meta(charset='UTF-8')
-    meta(name='viewport' content='width=device-width, initial-scale=1.0')
-    title= (pageTitle ? pageTitle + ' · ' + APP_NAME : APP_NAME)
+    meta(charset="UTF-8")
+    meta(
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    )
+    title= pageTitle ? pageTitle + " · " + APP_NAME : APP_NAME
     block head
-      link(href='/css/styles.css' rel='stylesheet')
-      script(src="/js/script.js" defer="true")
+      link(
+        href="/css/styles.css"
+        rel="stylesheet"
+      )
+      script(
+        src="/js/script.js"
+        defer="true"
+      )
   body(class="bg-gray-50")
     if user
       include header
 
-    main(class="container mx-auto mt-16 mb-10")
+    main(class="container mx-auto mb-10 mt-16")
       block content

@@ -1,49 +1,81 @@
 extends ../layout/index
 
 block vars
-  - let pageTitle = 'Crear propiedad'
+  - let pageTitle = "Crear propiedad"
 
 block append head
-  link(href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css" rel="stylesheet" crossorigin)
-  script(src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js" defer="true" crossorigin)
-  script(src="https://unpkg.com/esri-leaflet@3.0.8/dist/esri-leaflet.js" defer="true" crossorigin)
-  script(src="https://unpkg.com/esri-leaflet-geocoder@2.2.13/dist/esri-leaflet-geocoder.js" defer="true" crossorigin)
-  script(src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-geosearch/2.7.0/bundle.min.js" defer="true" crossorigin)
-  script(src="/js/map.js" defer="true")
+  link(
+    href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
+    rel="stylesheet"
+    crossorigin
+  )
+  script(
+    src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
+    defer="true"
+    crossorigin
+  )
+  script(
+    src="https://unpkg.com/esri-leaflet@3.0.8/dist/esri-leaflet.js"
+    defer="true"
+    crossorigin
+  )
+  script(
+    src="https://unpkg.com/esri-leaflet-geocoder@2.2.13/dist/esri-leaflet-geocoder.js"
+    defer="true"
+    crossorigin
+  )
+  script(
+    src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-geosearch/2.7.0/bundle.min.js"
+    defer="true"
+    crossorigin
+  )
+  script(
+    src="/js/map.js"
+    defer="true"
+  )
 
 block content
   +title(pageTitle)
 
-  div(class="bg-white mt-10 mx-auto rounded max-w-4xl p-8 shadow ")
+  div(class="mx-auto mt-10 max-w-4xl rounded bg-white p-8 shadow")
     form(
+      id="form"
       class="flex flex-col gap-4"
       method="POST"
-      action= `/properties?_token=${csrfToken()}`
+      action=`/properties?_token=${csrfToken()}`
       enctype="multipart/form-data"
-      id="form"
     )
       div
-        h3(class="leading-6 text-lg text-gray-900 font-medium") Información general
+        h3(class="text-lg font-medium leading-6 text-gray-900") Información general
         p(class="text-gray-600") Añade información sobre la propiedad en venta
       div
         +label('Título del anuncio')(for="title")
         +input('title')(placeholder="Título propiedad, ej. Casa en la playa")
       div
         +label('Descripción')(for="description")
-        +textarea('description')(placeholder="Descripción de la propiedad" rows="3")
+        +textarea('description')(
+          placeholder="Descripción de la propiedad"
+          rows="3"
+        )
 
-      div(class="space-y-4 md:space-y-0 md:flex md:gap-4")
+      div(class="space-y-4 md:flex md:gap-4 md:space-y-0")
         div(class="md:w-1/2")
           +label('Categoría')(for="category")
           +select('category')
             each category in categories
-              option(value=category.id selected= (old('category') == category.id))= category.name
+              option(
+                value=category.id
+                selected=old("category") == category.id
+              )= category.name
         div(class="md:w-1/2")
           +label('Precio')(for="price")
           +select('price')
             each price in prices
-              option(value=price.id selected= (old('price') == price.id))= price.range
-      div(class="space-y-4 md:space-y-0 md:flex md:gap-4")
+              option(
+                value=price.id
+                selected=old("price") == price.id
+              )= price.range
+      div(class="space-y-4 md:flex md:gap-4 md:space-y-0")
         div(class="md:w-1/3")
           +label('Habitaciones')(for="roomCount")
           +select('roomCount')
@@ -58,41 +90,58 @@ block content
             +optionNumbers('wcCount')
 
       div
-        h3(class="leading-6 text-lg text-gray-900 font-medium") Ubicación
+        h3(class="text-lg font-medium leading-6 text-gray-900") Ubicación
         p(class="text-gray-600") Ubica la propiedad en el mapa
         +error('lat')
 
         div(id="map" class="mt-2 h-96")
         div
           p(id="street-info" class="mt-1")
-        input(type="hidden" name="street" id="street" value= old('street'))
-        input(type="hidden" name="lat" id="lat" value= old('lat'))
-        input(type="hidden" name="lng" id="lng" value= old('lng'))
+        input(
+          id="street"
+          type="hidden"
+          name="street"
+          value=old("street")
+        )
+        input(
+          id="lat"
+          type="hidden"
+          name="lat"
+          value=old("lat")
+        )
+        input(
+          id="lng"
+          type="hidden"
+          name="lng"
+          value=old("lng")
+        )
       div
-        h3(class="leading-6 text-lg text-gray-900 font-medium") Fotos
+        h3(class="text-lg font-medium leading-6 text-gray-900") Fotos
         p(class="text-gray-600") Sube algunas fotos de tu propiedad
           +error('photos')
         div
-          div(class="relative flex justify-center items-center mt-4 mx-auto max-w-md h-60 rounded-xl border-2 border-dashed border-gray-400 hover:opacity-90")
+          div(
+            class="relative mx-auto mt-4 flex h-60 max-w-md items-center justify-center rounded-xl border-2 border-dashed border-gray-400 hover:opacity-90"
+          )
             div(class="text-center text-gray-600")
-              +icon('upload')(class="mb-4 mx-auto h-8 w-8")
+              +icon('upload')(class="mx-auto mb-4 h-8 w-8")
               p Arrastra y suelta tus fotos aquí
               p o
-              p(class="bg-indigo-50 mt-2 rounded border border-gray-400 py-1 px-4") Selecciona fotos de tu computadora
+              p(class="mt-2 rounded border border-gray-400 bg-indigo-50 px-4 py-1") Selecciona fotos de tu computadora
             input(
-              class="absolute cursor-pointer w-full h-full opacity-0"
+              id="file-input"
+              class="absolute h-full w-full cursor-pointer opacity-0"
               type="file"
               name="photos"
-              id="file-input"
               accept="image/png, image/jpeg, image/jpg"
               multiple
             )
-          div(class="mt-1 text-sm text-center text-gray-600")
+          div(class="mt-1 text-center text-sm text-gray-600")
             p * Máximo 5 fotos
             p * Cada foto no debe pesar más de 3MB
-        div(class="flex justify-center flex-wrap gap-2" id="image-preview")
+        div(id="image-preview" class="flex flex-wrap justify-center gap-2")
       div(class="text-center")
-        +link-btn('#', 'Crear propiedad')(class="inline-block" id="send-button")
+        +link-btn('#', 'Crear propiedad')(id="send-button" class="inline-block")
 
   script
     include previewImage.js

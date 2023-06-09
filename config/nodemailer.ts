@@ -1,5 +1,5 @@
-import nodemailer from 'nodemailer'
-import { env } from './index'
+import nodemailer from 'nodemailer';
+import { env } from './index';
 
 const transporter = nodemailer.createTransport(
   {
@@ -12,6 +12,6 @@ const transporter = nodemailer.createTransport(
     },
   },
   { from: `${env.APP_NAME} <${env.MAIL_FROM_ADDRESS}>` }
-)
+);
 
-export const send = transporter.sendMail.bind(transporter)
+export const send = transporter.sendMail.bind(transporter);

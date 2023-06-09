@@ -1,5 +1,9 @@
 mixin csrf
-  input(type='hidden' name='_token' value= csrfToken())
+  input(
+    type="hidden"
+    name="_token"
+    value=csrfToken()
+  )
 
 mixin error(name)
   if locals.error(name)
@@ -7,31 +11,31 @@ mixin error(name)
       span(class="block text-sm text-red-700")= error
 
 mixin label(content)
-  label(class="block mb-1 text-sm text-gray-600 font-bold")&attributes(attributes)= content
+  label(class="mb-1 block text-sm font-bold text-gray-600")&attributes(attributes)= content
 
 mixin input(name)
   input(
-    class="w-full border border-gray-300 rounded outline-none px-3 py-1 placeholder-gray-500 focus:border-indigo-500"
-    id= name
-    name= name
-    value= old(name)
+    class="w-full rounded border border-gray-300 px-3 py-1 placeholder-gray-500 outline-none focus:border-indigo-500"
+    id=name
+    name=name
+    value=old(name)
   )&attributes(attributes)
   +error(name)
 
 mixin textarea(name)
   textarea(
-    class="w-full border border-gray-300 rounded outline-none px-3 py-1 placeholder-gray-500 focus:border-indigo-500"
-    id= name
-    name= name
+    class="w-full rounded border border-gray-300 px-3 py-1 placeholder-gray-500 outline-none focus:border-indigo-500"
+    id=name
+    name=name
   )&attributes(attributes)= old(name)
   +error(name)
 
 mixin select(name, placeholder = '- Elige una opcion -')
   select(
-    class="w-full border border-gray-300 rounded outline-none px-3 py-1 focus:border-indigo-500"
-    id= name
-    name= name
-    value= old(name)
+    class="w-full rounded border border-gray-300 px-3 py-1 outline-none focus:border-indigo-500"
+    id=name
+    name=name
+    value=old(name)
   )
     option(class="text-gray-500" value="")= placeholder
     if block
@@ -41,49 +45,49 @@ mixin select(name, placeholder = '- Elige una opcion -')
 mixin optionNumbers(name, max = 5)
   - let n = 1
   while n <= max
-    option(value= n selected= (old(name) == n))= n++
+    option(
+      value=n
+      selected=old(name) == n
+    )= n++
 
 mixin submit(value)
   input(
-    class="bg-indigo-600 rounded px-8 py-2 text-white text-sm font-bold cursor-pointer hover:bg-indigo-700"
+    class="cursor-pointer rounded bg-indigo-600 px-8 py-2 text-sm font-bold text-white hover:bg-indigo-700"
     type="submit"
-    value= value
+    value=value
   )&attributes(attributes)
 
 mixin link(href, content)
-  a(class="text-indigo-500 hover:text-indigo-600" href= href)&attributes(attributes)= content
+  a(class="text-indigo-500 hover:text-indigo-600" href=href)&attributes(attributes)= content
 
 mixin link-btn(href, content)
-  a(
-    class="bg-indigo-600 rounded px-8 py-2 text-white text-sm font-bold hover:bg-indigo-700"
-    href= href
-  )&attributes(attributes)= content
+  a(class="rounded bg-indigo-600 px-8 py-2 text-sm font-bold text-white hover:bg-indigo-700" href=href)&attributes(attributes)= content
 
 mixin alert-success(message, title)
-  div(class="bg-green-200 p-2 rounded")
+  div(class="rounded bg-green-200 p-2")
     if title
       p(class="font-bold")= title
     p= message
 
 mixin alert-warning(message, title)
-  div(class="bg-amber-100 p-2 rounded")
+  div(class="rounded bg-amber-100 p-2")
     if title
       p(class="font-bold")= title
     p= message
 
 mixin alert-danger(message, title)
-  div(class="bg-red-200 p-2 rounded")
+  div(class="rounded bg-red-200 p-2")
     if title
       p(class="font-bold")= title
     p= message
 
 mixin alert-info(message, title)
-  div(class="bg-sky-200 p-2 rounded")
+  div(class="rounded bg-sky-200 p-2")
     if title
       p(class="font-bold")= title
     p= message
 
 mixin title(title)
-  h1(class="my-10 text-4xl text-center font-extrabold") Bienes
-    span(class="font-normal") #{' '} Raices
-  h2(class="text-2xl text-center font-bold")= title
+  h1(class="my-10 text-center text-4xl font-extrabold") Bienes
+    span(class="font-normal") #{ ' ' } Raices
+  h2(class="text-center text-2xl font-bold")= title

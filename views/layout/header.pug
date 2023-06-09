@@ -1,14 +1,18 @@
-header(class="bg-indigo-600 container flex justify-between mx-auto items-center p-4")
-  div(class="text-2xl text-white font-extrabold") Bienes
-    span(class="font-normal") #{' '} Raices
+header(class="container mx-auto flex items-center justify-between bg-indigo-600 p-4")
+  div(class="text-2xl font-extrabold text-white") Bienes
+    span(class="font-normal") #{ ' ' } Raices
 
-  nav(class="text-sm text-white font-bold md:flex md:items-center md:gap-3")
+  nav(class="text-sm font-bold text-white md:flex md:items-center md:gap-3")
     a(href="") Mis propiedades
     a(href="") Mi perfil
     a(
-      class="bg-indigo-800 rounded-lg p-2 px-10"
+      class="rounded-lg bg-indigo-800 p-2 px-10"
       onclick="event.preventDefault(); document.getElementById('frm-logout').submit();"
       href="#"
     ) Cerrar sesión
-    form(method="POST" action="/auth/logout" class="hidden" id="frm-logout")
+    form#frm-logout(
+      method="POST"
+      action="/auth/logout"
+      class="hidden"
+    )
       +csrf

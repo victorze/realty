@@ -1,4 +1,4 @@
-import { typeorm } from '../config'
+import { typeorm } from '../config';
 
 typeorm.dataSource
   .initialize()
@@ -14,11 +14,11 @@ typeorm.dataSource
       ALTER TABLE "session" ADD CONSTRAINT "session_pkey" PRIMARY KEY ("sid") NOT DEFERRABLE INITIALLY IMMEDIATE;
 
       CREATE INDEX "IDX_session_expire" ON "session" ("expire");
-    `)
+    `);
 
-    process.exit()
+    process.exit();
   })
   .catch((error) => {
-    console.log(error)
-    process.exit(1)
-  })
+    console.log(error);
+    process.exit(1);
+  });
