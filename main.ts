@@ -1,10 +1,10 @@
-import 'reflect-metadata'
-import { env, typeorm } from './config'
-import { logger } from './utils'
-import app from './app'
+import 'reflect-metadata';
+import { env, typeorm } from './config';
+import { logger } from './utils';
+import app from './app';
 
-typeorm.connect()
+typeorm.connect();
 
 app.listen(env.PORT, () => {
-  logger.info(`Starting development server: http://localhost:${env.PORT}`)
-})
+  logger.info(`Starting development server: http://localhost:${env.PORT}`);
+});
